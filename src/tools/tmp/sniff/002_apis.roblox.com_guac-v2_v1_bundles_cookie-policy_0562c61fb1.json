@@ -1,0 +1,10 @@
+{
+  "ShouldCallEvidon": false,
+  "EssentialCookieList": [],
+  "NonEssentialCookieList": [
+    "RBXViralAcquisition",
+    "RBXSource",
+    "GoogleAnalytics"
+  ],
+  "ShouldDisplayCookieBannerV3": false
+}

@@ -1,0 +1,29 @@
+{
+  "projectId": 1,
+  "version": 32,
+  "publishedAt": 1764789362,
+  "layers": {
+    "Website.LandingPage": {
+      "experimentName": null,
+      "isAudienceSpecified": false,
+      "isAudienceMember": null,
+      "segment": 7902,
+      "experimentVariant": "da39a3e",
+      "parameters": {
+        "isSignupButtonDisabled": true,
+        "IsUsernameSuggestionEnabled": true,
+        "IsKoreaEnhancedComplianceEnabled": true,
+        "generatedExperimentVariantDistributionVariable": 3,
+        "LandingBackgroundClass": "marketing-background-1",
+        "shouldRequireSignupCheckbox": false,
+        "signupLegalDisclaimerTextVariant": 1
+      },
+      "primaryUnit": "btid",
+      "primaryUnitValue": 1767639595380001,
+      "holdoutGroupExperimentName": null
+    }
+  },
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.7499.4 Safari/537.36",
+  "platformType": "Mac",
+  "platformTypeId": 4
+}
