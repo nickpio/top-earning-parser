@@ -21,21 +21,14 @@ function getArg(flag: string): string | undefined {
   return i >= 0 ? process.argv[i + 1] : undefined;
 }
 
-function latestPrunedReport(): string {
-  const dir = path.resolve(process.cwd(), "reports");
+function latestPrunedFile(dir: string): string {
   const files = fs
     .readdirSync(dir)
     .filter((f) => f.endsWith("_pruned.json"))
     .sort();
 
-  if (files.length === 0) {
-    throw new Error(`No *_pruned.json files found in ${dir}`);
-  }
+  if (files.length === 0) throw new Error(`No *_pruned.json files found in ${dir}`);
   return path.join(dir, files[files.length - 1]);
-}
-
-function ensureDir(p: string) {
-  fs.mkdirSync(p, { recursive: true });
 }
 
 function safeInt(v: unknown): number {
@@ -148,7 +141,12 @@ function buildWorkbook(rows: PrunedGameRow[]) {
 }
 
 async function main() {
-  const inputPath = getArg("--file") ?? latestPrunedReport();
+  const inDir = getArg("--inDir") ?? path.resolve(process.cwd(), "reports");
+  const outDir = getArg("--outDir") ?? inDir;
+  const fileArg = getArg("--file");
+
+  const inputPath = fileArg ? path.resolve(fileArg) : latestPrunedFile(inDir);
+  fs.mkdirSync(outDir, { recursive: true });
 
   const raw = fs.readFileSync(inputPath, "utf8");
   const parsed = JSON.parse(raw);
@@ -161,11 +159,13 @@ async function main() {
 
   const wb = buildWorkbook(rows);
 
-  const outPath = inputPath.replace(/_pruned\.json$/i, "_pruned.ods");
-  ensureDir(path.dirname(outPath));
+  const outPath = path.join(
+    outDir,
+    path.basename(inputPath).replace(/_pruned\.json$/i, "_pruned.ods")
+  );
   XLSX.writeFile(wb, outPath);
 
-  console.log(`Exported ${rows.length} rows -> ${path.relative(process.cwd(), outPath)}`);
+  console.log(`Exported ${rows.length} rows -> ${outPath}`);
 }
 
 main().catch((e) => {

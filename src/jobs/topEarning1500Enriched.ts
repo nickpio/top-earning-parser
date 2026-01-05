@@ -6,6 +6,11 @@ import { fetchGamePassStatsBatch } from "../scrape/gamePassesBatch";
 import { fetchPaidAccessFromPlaceDetails } from "../scrape/paidAccess";
 import { loadGamePassCache, saveGamePassCache, splitUniverseIdsByCacheFreshness, getCached, setCached } from "../cache/gamePassCache";
 
+function getArg(flag: string): string | undefined {
+  const i = process.argv.indexOf(flag);
+  return i >= 0 ? process.argv[i + 1] : undefined;
+}
+
 function todayISO() {
   return new Date().toISOString().slice(0, 10);
 }
@@ -129,13 +134,13 @@ async function main() {
     });
   }
 
-  const outDir = path.resolve(process.cwd(), "reports");
+  const outDir = getArg("--outDir") ?? path.resolve(process.cwd(), "reports");
   fs.mkdirSync(outDir, { recursive: true });
 
   const outPath = path.join(outDir, `${todayISO()}_top-earning_top${limit}_enriched.json`);
   fs.writeFileSync(outPath, JSON.stringify(rows, null, 2), "utf8");
 
-  console.log(`Wrote ${rows.length} rows -> ${path.relative(process.cwd(), outPath)}`);
+  console.log(`Wrote ${rows.length} rows -> ${outPath}`);
   console.log(rows.slice(0, 2));
 }
 

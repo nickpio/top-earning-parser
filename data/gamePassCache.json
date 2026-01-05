@@ -1,0 +1,2868 @@
+{
+  "version": 1,
+  "entries": {
+    "47545": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 15,
+        "avgGamePassPrice": 646
+      }
+    },
+    "65241": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 3,
+        "avgGamePassPrice": 73
+      }
+    },
+    "21164849": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 15,
+        "avgGamePassPrice": 112
+      }
+    },
+    "27761886": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 14,
+        "avgGamePassPrice": 1868
+      }
+    },
+    "31970568": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 5,
+        "avgGamePassPrice": 164
+      }
+    },
+    "73885730": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 2,
+        "avgGamePassPrice": 300
+      }
+    },
+    "79301772": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 13,
+        "avgGamePassPrice": 411
+      }
+    },
+    "88070565": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 8,
+        "avgGamePassPrice": 291
+      }
+    },
+    "97314177": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 14,
+        "avgGamePassPrice": 358
+      }
+    },
+    "98839997": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 10,
+        "avgGamePassPrice": 436
+      }
+    },
+    "98929893": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 26,
+        "avgGamePassPrice": 398
+      }
+    },
+    "102815652": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 7,
+        "avgGamePassPrice": 424
+      }
+    },
+    "107172930": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 4,
+        "avgGamePassPrice": 394
+      }
+    },
+    "110181652": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 10,
+        "avgGamePassPrice": 304
+      }
+    },
+    "110988953": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 10,
+        "avgGamePassPrice": 345
+      }
+    },
+    "111958650": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 5,
+        "avgGamePassPrice": 451
+      }
+    },
+    "113491250": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "115797356": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "117307972": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 9,
+        "avgGamePassPrice": 233
+      }
+    },
+    "184199275": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 24,
+        "avgGamePassPrice": 672
+      }
+    },
+    "187796008": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 8,
+        "avgGamePassPrice": 433
+      }
+    },
+    "210851291": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 4,
+        "avgGamePassPrice": 313
+      }
+    },
+    "245662005": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 7,
+        "avgGamePassPrice": 450
+      }
+    },
+    "274816972": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 17,
+        "avgGamePassPrice": 259
+      }
+    },
+    "279565647": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 6,
+        "avgGamePassPrice": 550
+      }
+    },
+    "280343502": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 2,
+        "avgGamePassPrice": 387
+      }
+    },
+    "297557386": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 4,
+        "avgGamePassPrice": 183
+      }
+    },
+    "300039023": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 1,
+        "avgGamePassPrice": 1000
+      }
+    },
+    "321279858": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 2,
+        "avgGamePassPrice": 64
+      }
+    },
+    "321778215": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 10,
+        "avgGamePassPrice": 397
+      }
+    },
+    "323675642": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 9,
+        "avgGamePassPrice": 583
+      }
+    },
+    "371112664": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 15,
+        "avgGamePassPrice": 1084
+      }
+    },
+    "371263894": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 7,
+        "avgGamePassPrice": 184
+      }
+    },
+    "372226183": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 1,
+        "avgGamePassPrice": 420
+      }
+    },
+    "383310974": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 11,
+        "avgGamePassPrice": 574
+      }
+    },
+    "540382210": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 39,
+        "avgGamePassPrice": 78
+      }
+    },
+    "547524060": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 5,
+        "avgGamePassPrice": 480
+      }
+    },
+    "578392296": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 14,
+        "avgGamePassPrice": 382
+      }
+    },
+    "601130232": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "605887098": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 3,
+        "avgGamePassPrice": 326
+      }
+    },
+    "703124385": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 1,
+        "avgGamePassPrice": 195
+      }
+    },
+    "833209132": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 6,
+        "avgGamePassPrice": 1432
+      }
+    },
+    "850110028": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 13,
+        "avgGamePassPrice": 246
+      }
+    },
+    "972475338": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 13,
+        "avgGamePassPrice": 254
+      }
+    },
+    "985731078": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 6,
+        "avgGamePassPrice": 649
+      }
+    },
+    "994732206": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 6,
+        "avgGamePassPrice": 917
+      }
+    },
+    "1001911915": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 2,
+        "avgGamePassPrice": 263
+      }
+    },
+    "1037979853": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 18,
+        "avgGamePassPrice": 302
+      }
+    },
+    "1053132402": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 10,
+        "avgGamePassPrice": 320
+      }
+    },
+    "1160789089": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 17,
+        "avgGamePassPrice": 718
+      }
+    },
+    "1176784616": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 20,
+        "avgGamePassPrice": 1245
+      }
+    },
+    "1198533421": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 7,
+        "avgGamePassPrice": 181
+      }
+    },
+    "1200145783": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 6,
+        "avgGamePassPrice": 531
+      }
+    },
+    "1202096104": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 4,
+        "avgGamePassPrice": 166
+      }
+    },
+    "1235188606": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 5,
+        "avgGamePassPrice": 345
+      }
+    },
+    "1247975681": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 8,
+        "avgGamePassPrice": 1053
+      }
+    },
+    "1268927906": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 9,
+        "avgGamePassPrice": 342
+      }
+    },
+    "1275875292": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 14,
+        "avgGamePassPrice": 742
+      }
+    },
+    "1278035280": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 49,
+        "avgGamePassPrice": 382
+      }
+    },
+    "1312971993": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 17,
+        "avgGamePassPrice": 402
+      }
+    },
+    "1335695570": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 15,
+        "avgGamePassPrice": 692
+      }
+    },
+    "1374118848": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 14,
+        "avgGamePassPrice": 400
+      }
+    },
+    "1390601379": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 7,
+        "avgGamePassPrice": 399
+      }
+    },
+    "1393178180": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "1404342734": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 17,
+        "avgGamePassPrice": 237
+      }
+    },
+    "1451439645": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 7,
+        "avgGamePassPrice": 1229
+      }
+    },
+    "1480782352": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 7,
+        "avgGamePassPrice": 150
+      }
+    },
+    "1489026993": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 10,
+        "avgGamePassPrice": 624
+      }
+    },
+    "1490130369": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 10,
+        "avgGamePassPrice": 405
+      }
+    },
+    "1499870257": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 11,
+        "avgGamePassPrice": 452
+      }
+    },
+    "1511883870": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 15,
+        "avgGamePassPrice": 440
+      }
+    },
+    "1516533665": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 8,
+        "avgGamePassPrice": 131
+      }
+    },
+    "1525626450": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 9,
+        "avgGamePassPrice": 199
+      }
+    },
+    "1526814825": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 21,
+        "avgGamePassPrice": 677
+      }
+    },
+    "1668992109": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 7,
+        "avgGamePassPrice": 621
+      }
+    },
+    "1686885941": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 16,
+        "avgGamePassPrice": 357
+      }
+    },
+    "1709917610": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 13,
+        "avgGamePassPrice": 161
+      }
+    },
+    "1742264997": {
+      "fetchedAt": "2026-01-05T22:27:58.118Z",
+      "stats": {
+        "gamePassCount": 9,
+        "avgGamePassPrice": 686
+      }
+    },
+    "1769712451": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 14,
+        "avgGamePassPrice": 165
+      }
+    },
+    "1775919872": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 12,
+        "avgGamePassPrice": 567
+      }
+    },
+    "1802741133": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 12,
+        "avgGamePassPrice": 283
+      }
+    },
+    "1831550657": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "2073329983": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 8,
+        "avgGamePassPrice": 386
+      }
+    },
+    "2082205150": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 5,
+        "avgGamePassPrice": 130
+      }
+    },
+    "2092410051": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 6,
+        "avgGamePassPrice": 299
+      }
+    },
+    "2114144926": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 4,
+        "avgGamePassPrice": 774
+      }
+    },
+    "2201173838": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 28,
+        "avgGamePassPrice": 646
+      }
+    },
+    "2251388500": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 9,
+        "avgGamePassPrice": 267
+      }
+    },
+    "2316994223": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 15,
+        "avgGamePassPrice": 524
+      }
+    },
+    "2380077519": {
+      "fetchedAt": "2026-01-05T22:27:58.118Z",
+      "stats": {
+        "gamePassCount": 11,
+        "avgGamePassPrice": 182
+      }
+    },
+    "2440500124": {
+      "fetchedAt": "2026-01-05T22:27:58.118Z",
+      "stats": {
+        "gamePassCount": 2,
+        "avgGamePassPrice": 399
+      }
+    },
+    "2491559356": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 1,
+        "avgGamePassPrice": 2499
+      }
+    },
+    "2499076778": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 4,
+        "avgGamePassPrice": 169
+      }
+    },
+    "2516044547": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 9,
+        "avgGamePassPrice": 272
+      }
+    },
+    "2564505263": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 9,
+        "avgGamePassPrice": 510
+      }
+    },
+    "2619619496": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 50,
+        "avgGamePassPrice": 415
+      }
+    },
+    "2640407187": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 10,
+        "avgGamePassPrice": 169
+      }
+    },
+    "2668101271": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 7,
+        "avgGamePassPrice": 246
+      }
+    },
+    "2682938349": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 8,
+        "avgGamePassPrice": 394
+      }
+    },
+    "2783797267": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 8,
+        "avgGamePassPrice": 256
+      }
+    },
+    "2788648141": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 19,
+        "avgGamePassPrice": 622
+      }
+    },
+    "2820580801": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 9,
+        "avgGamePassPrice": 375
+      }
+    },
+    "2851381018": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 2,
+        "avgGamePassPrice": 299
+      }
+    },
+    "2936053166": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 10,
+        "avgGamePassPrice": 862
+      }
+    },
+    "2992873140": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 10,
+        "avgGamePassPrice": 369
+      }
+    },
+    "3012965062": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 8,
+        "avgGamePassPrice": 305
+      }
+    },
+    "3064619271": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 10,
+        "avgGamePassPrice": 565
+      }
+    },
+    "3110388936": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 22,
+        "avgGamePassPrice": 850
+      }
+    },
+    "3164075108": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 17,
+        "avgGamePassPrice": 961
+      }
+    },
+    "3168615253": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 7,
+        "avgGamePassPrice": 286
+      }
+    },
+    "3170483284": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "3213362013": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 48,
+        "avgGamePassPrice": 1036
+      }
+    },
+    "3240075297": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 8,
+        "avgGamePassPrice": 424
+      }
+    },
+    "3264581003": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 8,
+        "avgGamePassPrice": 887
+      }
+    },
+    "3308103880": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 10,
+        "avgGamePassPrice": 304
+      }
+    },
+    "3317679266": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 7,
+        "avgGamePassPrice": 14578
+      }
+    },
+    "3317771874": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 13,
+        "avgGamePassPrice": 1113
+      }
+    },
+    "3359505957": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 6,
+        "avgGamePassPrice": 432
+      }
+    },
+    "3365661357": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 8,
+        "avgGamePassPrice": 499
+      }
+    },
+    "3405618667": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 14,
+        "avgGamePassPrice": 406
+      }
+    },
+    "3457700596": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 4,
+        "avgGamePassPrice": 509
+      }
+    },
+    "3498637623": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 12,
+        "avgGamePassPrice": 225
+      }
+    },
+    "3508322461": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 6,
+        "avgGamePassPrice": 127
+      }
+    },
+    "3541611379": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 2,
+        "avgGamePassPrice": 320
+      }
+    },
+    "3551414857": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 14,
+        "avgGamePassPrice": 1903
+      }
+    },
+    "3624423521": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 1,
+        "avgGamePassPrice": 350
+      }
+    },
+    "3647333358": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 14,
+        "avgGamePassPrice": 496
+      }
+    },
+    "3808081382": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 7,
+        "avgGamePassPrice": 228
+      }
+    },
+    "3808223175": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 7,
+        "avgGamePassPrice": 899
+      }
+    },
+    "3825253530": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 1,
+        "avgGamePassPrice": 449
+      }
+    },
+    "3825332406": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 6,
+        "avgGamePassPrice": 566
+      }
+    },
+    "3846592040": {
+      "fetchedAt": "2026-01-05T22:27:58.118Z",
+      "stats": {
+        "gamePassCount": 2,
+        "avgGamePassPrice": 100
+      }
+    },
+    "3864279452": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 8,
+        "avgGamePassPrice": 191
+      }
+    },
+    "3876150506": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 10,
+        "avgGamePassPrice": 583
+      }
+    },
+    "3913007563": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "3916548970": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 8,
+        "avgGamePassPrice": 144
+      }
+    },
+    "3936365689": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 9,
+        "avgGamePassPrice": 736
+      }
+    },
+    "3990106548": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 10,
+        "avgGamePassPrice": 389
+      }
+    },
+    "4019583467": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 8,
+        "avgGamePassPrice": 310
+      }
+    },
+    "4069560710": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 21,
+        "avgGamePassPrice": 444
+      }
+    },
+    "4126908979": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 2,
+        "avgGamePassPrice": 255
+      }
+    },
+    "4130569984": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "4147392742": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 17,
+        "avgGamePassPrice": 327
+      }
+    },
+    "4154513353": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 7,
+        "avgGamePassPrice": 392
+      }
+    },
+    "4161970303": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 15,
+        "avgGamePassPrice": 900
+      }
+    },
+    "4165164803": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 7,
+        "avgGamePassPrice": 428
+      }
+    },
+    "4178985930": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 3,
+        "avgGamePassPrice": 609
+      }
+    },
+    "4181957649": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 5,
+        "avgGamePassPrice": 359
+      }
+    },
+    "4193032947": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 12,
+        "avgGamePassPrice": 183
+      }
+    },
+    "4201418016": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 4,
+        "avgGamePassPrice": 749
+      }
+    },
+    "4263371487": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 28,
+        "avgGamePassPrice": 972
+      }
+    },
+    "4263576532": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 29,
+        "avgGamePassPrice": 369
+      }
+    },
+    "7332711118": {
+      "fetchedAt": "2026-01-05T22:27:58.115Z",
+      "stats": {
+        "gamePassCount": 8,
+        "avgGamePassPrice": 322
+      }
+    },
+    "4793836769": {
+      "fetchedAt": "2026-01-05T22:27:58.118Z",
+      "stats": {
+        "gamePassCount": 4,
+        "avgGamePassPrice": 144
+      }
+    },
+    "8834587397": {
+      "fetchedAt": "2026-01-05T22:27:58.118Z",
+      "stats": {
+        "gamePassCount": 9,
+        "avgGamePassPrice": 843
+      }
+    },
+    "7178032757": {
+      "fetchedAt": "2026-01-05T22:27:58.118Z",
+      "stats": {
+        "gamePassCount": 18,
+        "avgGamePassPrice": 456
+      }
+    },
+    "5422546686": {
+      "fetchedAt": "2026-01-05T22:27:58.118Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "4348829796": {
+      "fetchedAt": "2026-01-05T22:27:58.118Z",
+      "stats": {
+        "gamePassCount": 1,
+        "avgGamePassPrice": 399
+      }
+    },
+    "6570785859": {
+      "fetchedAt": "2026-01-05T22:27:58.118Z",
+      "stats": {
+        "gamePassCount": 4,
+        "avgGamePassPrice": 222
+      }
+    },
+    "9277195104": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 1,
+        "avgGamePassPrice": 199
+      }
+    },
+    "7882829745": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 23,
+        "avgGamePassPrice": 429
+      }
+    },
+    "9228045253": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 3,
+        "avgGamePassPrice": 582
+      }
+    },
+    "6504986360": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 13,
+        "avgGamePassPrice": 197
+      }
+    },
+    "7883776681": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "6325068386": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 9,
+        "avgGamePassPrice": 227
+      }
+    },
+    "5829613337": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 1,
+        "avgGamePassPrice": 450
+      }
+    },
+    "4568630521": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 7,
+        "avgGamePassPrice": 304
+      }
+    },
+    "8520148363": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "8916375040": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 4,
+        "avgGamePassPrice": 165
+      }
+    },
+    "8316902627": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 2,
+        "avgGamePassPrice": 199
+      }
+    },
+    "7934320560": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 1,
+        "avgGamePassPrice": 799
+      }
+    },
+    "7673659635": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 5,
+        "avgGamePassPrice": 247
+      }
+    },
+    "4730278139": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 9,
+        "avgGamePassPrice": 160
+      }
+    },
+    "6945584306": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 7,
+        "avgGamePassPrice": 218
+      }
+    },
+    "5166944221": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 6,
+        "avgGamePassPrice": 407
+      }
+    },
+    "6760085372": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 9,
+        "avgGamePassPrice": 582
+      }
+    },
+    "4658598196": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 10,
+        "avgGamePassPrice": 480
+      }
+    },
+    "6161049307": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "8937254139": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 4,
+        "avgGamePassPrice": 349
+      }
+    },
+    "7660436108": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 4,
+        "avgGamePassPrice": 512
+      }
+    },
+    "6749060816": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 16,
+        "avgGamePassPrice": 326
+      }
+    },
+    "6275120808": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 5,
+        "avgGamePassPrice": 230
+      }
+    },
+    "7264587281": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "6682487255": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 4,
+        "avgGamePassPrice": 562
+      }
+    },
+    "5569032992": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 4,
+        "avgGamePassPrice": 200
+      }
+    },
+    "7008097940": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 7,
+        "avgGamePassPrice": 463
+      }
+    },
+    "8779464785": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 13,
+        "avgGamePassPrice": 565
+      }
+    },
+    "9266873836": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 16,
+        "avgGamePassPrice": 230
+      }
+    },
+    "5995470825": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 10,
+        "avgGamePassPrice": 397
+      }
+    },
+    "5578556129": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 4,
+        "avgGamePassPrice": 587
+      }
+    },
+    "5361032378": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 7,
+        "avgGamePassPrice": 195
+      }
+    },
+    "5203828273": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 13,
+        "avgGamePassPrice": 305
+      }
+    },
+    "7488190691": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 5,
+        "avgGamePassPrice": 473
+      }
+    },
+    "6701277882": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 15,
+        "avgGamePassPrice": 379
+      }
+    },
+    "7436755782": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "6331902150": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 2,
+        "avgGamePassPrice": 499
+      }
+    },
+    "4777817887": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 4,
+        "avgGamePassPrice": 178
+      }
+    },
+    "5750914919": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 10,
+        "avgGamePassPrice": 249
+      }
+    },
+    "6931042565": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 14,
+        "avgGamePassPrice": 374
+      }
+    },
+    "7326934954": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "7671049560": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 6,
+        "avgGamePassPrice": 379
+      }
+    },
+    "7709344486": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 3,
+        "avgGamePassPrice": 2766
+      }
+    },
+    "6035872082": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 9,
+        "avgGamePassPrice": 812
+      }
+    },
+    "8250618750": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 14,
+        "avgGamePassPrice": 1114
+      }
+    },
+    "6466404775": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 5,
+        "avgGamePassPrice": 234
+      }
+    },
+    "4509896324": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 6,
+        "avgGamePassPrice": 732
+      }
+    },
+    "5015364201": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 2,
+        "avgGamePassPrice": 297
+      }
+    },
+    "5329077236": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 10,
+        "avgGamePassPrice": 254
+      }
+    },
+    "7872170209": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 19,
+        "avgGamePassPrice": 664
+      }
+    },
+    "9161811618": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "9299166304": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 13,
+        "avgGamePassPrice": 390
+      }
+    },
+    "8570876289": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "6112350547": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 1,
+        "avgGamePassPrice": 450
+      }
+    },
+    "7255005317": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 5,
+        "avgGamePassPrice": 450
+      }
+    },
+    "7658304545": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 4,
+        "avgGamePassPrice": 362
+      }
+    },
+    "8269273068": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 2,
+        "avgGamePassPrice": 350
+      }
+    },
+    "9029463012": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 4,
+        "avgGamePassPrice": 134
+      }
+    },
+    "7843413523": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "7665084235": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 15,
+        "avgGamePassPrice": 1212
+      }
+    },
+    "8985420275": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "8641602265": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 3,
+        "avgGamePassPrice": 226
+      }
+    },
+    "7633926880": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 1,
+        "avgGamePassPrice": 399
+      }
+    },
+    "4778845442": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 9,
+        "avgGamePassPrice": 339
+      }
+    },
+    "4673599750": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 3,
+        "avgGamePassPrice": 266
+      }
+    },
+    "9100068452": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 4,
+        "avgGamePassPrice": 179
+      }
+    },
+    "8066283370": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 12,
+        "avgGamePassPrice": 214
+      }
+    },
+    "9091133975": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 8,
+        "avgGamePassPrice": 244
+      }
+    },
+    "6048923315": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 4,
+        "avgGamePassPrice": 574
+      }
+    },
+    "7474367816": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 15,
+        "avgGamePassPrice": 299
+      }
+    },
+    "6069634717": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 3,
+        "avgGamePassPrice": 199
+      }
+    },
+    "9141263942": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 3,
+        "avgGamePassPrice": 183
+      }
+    },
+    "7018980692": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 4,
+        "avgGamePassPrice": 222
+      }
+    },
+    "9230423513": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 1,
+        "avgGamePassPrice": 99
+      }
+    },
+    "9145063979": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 2,
+        "avgGamePassPrice": 545
+      }
+    },
+    "4839802560": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "4938220315": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 22,
+        "avgGamePassPrice": 1144
+      }
+    },
+    "8950496606": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 4,
+        "avgGamePassPrice": 177
+      }
+    },
+    "7738524573": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 4,
+        "avgGamePassPrice": 562
+      }
+    },
+    "9141743926": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 6,
+        "avgGamePassPrice": 492
+      }
+    },
+    "9274794049": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "4391829435": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 17,
+        "avgGamePassPrice": 187
+      }
+    },
+    "7703614594": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 6,
+        "avgGamePassPrice": 383
+      }
+    },
+    "8832884753": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 13,
+        "avgGamePassPrice": 395
+      }
+    },
+    "7028566528": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 10,
+        "avgGamePassPrice": 171
+      }
+    },
+    "6594435384": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 29,
+        "avgGamePassPrice": 1278
+      }
+    },
+    "4931927012": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 10,
+        "avgGamePassPrice": 364
+      }
+    },
+    "6858589072": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 3,
+        "avgGamePassPrice": 399
+      }
+    },
+    "5740162485": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 8,
+        "avgGamePassPrice": 562
+      }
+    },
+    "7094518649": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 7,
+        "avgGamePassPrice": 474
+      }
+    },
+    "5650396773": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 33,
+        "avgGamePassPrice": 473
+      }
+    },
+    "7884563721": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 25,
+        "avgGamePassPrice": 812
+      }
+    },
+    "4434528807": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 17,
+        "avgGamePassPrice": 461
+      }
+    },
+    "8964844004": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 5,
+        "avgGamePassPrice": 299
+      }
+    },
+    "6317476162": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "9271890694": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 11,
+        "avgGamePassPrice": 52
+      }
+    },
+    "7703544118": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 10,
+        "avgGamePassPrice": 312
+      }
+    },
+    "9330730057": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "6097519616": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 8,
+        "avgGamePassPrice": 247
+      }
+    },
+    "8970620890": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 3,
+        "avgGamePassPrice": 416
+      }
+    },
+    "7585079192": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 3,
+        "avgGamePassPrice": 482
+      }
+    },
+    "8558608973": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 1,
+        "avgGamePassPrice": 299
+      }
+    },
+    "6443367640": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 23,
+        "avgGamePassPrice": 856
+      }
+    },
+    "4367208330": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 4,
+        "avgGamePassPrice": 312
+      }
+    },
+    "8620685718": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 8,
+        "avgGamePassPrice": 72
+      }
+    },
+    "8497165255": {
+      "fetchedAt": "2026-01-05T22:27:58.119Z",
+      "stats": {
+        "gamePassCount": 10,
+        "avgGamePassPrice": 308
+      }
+    },
+    "5265857965": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 8,
+        "avgGamePassPrice": 212
+      }
+    },
+    "8313824597": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 5,
+        "avgGamePassPrice": 200
+      }
+    },
+    "9260939847": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 9,
+        "avgGamePassPrice": 302
+      }
+    },
+    "8593559630": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 4,
+        "avgGamePassPrice": 199
+      }
+    },
+    "6369934270": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 6,
+        "avgGamePassPrice": 182
+      }
+    },
+    "9312830998": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 4,
+        "avgGamePassPrice": 360
+      }
+    },
+    "6260656796": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 19,
+        "avgGamePassPrice": 393
+      }
+    },
+    "6092088279": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 8,
+        "avgGamePassPrice": 457
+      }
+    },
+    "5597104724": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 6,
+        "avgGamePassPrice": 1191
+      }
+    },
+    "7487899635": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 20,
+        "avgGamePassPrice": 487
+      }
+    },
+    "7629884826": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 5,
+        "avgGamePassPrice": 329
+      }
+    },
+    "7546582051": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 8,
+        "avgGamePassPrice": 749
+      }
+    },
+    "6935083490": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 5,
+        "avgGamePassPrice": 399
+      }
+    },
+    "8622097204": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 5,
+        "avgGamePassPrice": 97
+      }
+    },
+    "8356971463": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 10,
+        "avgGamePassPrice": 451
+      }
+    },
+    "8343243056": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 5,
+        "avgGamePassPrice": 259
+      }
+    },
+    "4457060041": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 8,
+        "avgGamePassPrice": 408
+      }
+    },
+    "9155036056": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 2,
+        "avgGamePassPrice": 299
+      }
+    },
+    "5237019718": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 2,
+        "avgGamePassPrice": 450
+      }
+    },
+    "9238186753": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 6,
+        "avgGamePassPrice": 88
+      }
+    },
+    "8741232785": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 6,
+        "avgGamePassPrice": 382
+      }
+    },
+    "8539298853": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 1,
+        "avgGamePassPrice": 299
+      }
+    },
+    "7960300951": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 2,
+        "avgGamePassPrice": 499
+      }
+    },
+    "5200655965": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 2,
+        "avgGamePassPrice": 324
+      }
+    },
+    "7629331599": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 4,
+        "avgGamePassPrice": 443
+      }
+    },
+    "9317784977": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 1,
+        "avgGamePassPrice": 399
+      }
+    },
+    "8321616508": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 5,
+        "avgGamePassPrice": 480
+      }
+    },
+    "8639693426": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 5,
+        "avgGamePassPrice": 184
+      }
+    },
+    "7661385356": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 7,
+        "avgGamePassPrice": 214
+      }
+    },
+    "6216468795": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 6,
+        "avgGamePassPrice": 516
+      }
+    },
+    "6221848978": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 10,
+        "avgGamePassPrice": 492
+      }
+    },
+    "5170731021": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 8,
+        "avgGamePassPrice": 1406
+      }
+    },
+    "7856508689": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 2,
+        "avgGamePassPrice": 349
+      }
+    },
+    "4491246195": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 3,
+        "avgGamePassPrice": 767
+      }
+    },
+    "9191100702": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 4,
+        "avgGamePassPrice": 312
+      }
+    },
+    "7929627612": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 20,
+        "avgGamePassPrice": 12
+      }
+    },
+    "7072674902": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "9281147003": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "7074860883": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 19,
+        "avgGamePassPrice": 669
+      }
+    },
+    "8104504677": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 10,
+        "avgGamePassPrice": 153
+      }
+    },
+    "6570537965": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 7,
+        "avgGamePassPrice": 953
+      }
+    },
+    "8836568224": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 12,
+        "avgGamePassPrice": 182
+      }
+    },
+    "5698013839": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 2,
+        "avgGamePassPrice": 249
+      }
+    },
+    "8234554323": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 8,
+        "avgGamePassPrice": 343
+      }
+    },
+    "9063849985": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 6,
+        "avgGamePassPrice": 267
+      }
+    },
+    "8719555347": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 8,
+        "avgGamePassPrice": 243
+      }
+    },
+    "5576955991": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 13,
+        "avgGamePassPrice": 241
+      }
+    },
+    "8926300874": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "4925331346": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 10,
+        "avgGamePassPrice": 425
+      }
+    },
+    "8015734617": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 6,
+        "avgGamePassPrice": 463
+      }
+    },
+    "8828612659": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 9,
+        "avgGamePassPrice": 192
+      }
+    },
+    "5012222382": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 17,
+        "avgGamePassPrice": 543
+      }
+    },
+    "4983034985": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 25,
+        "avgGamePassPrice": 463
+      }
+    },
+    "9338091695": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 7,
+        "avgGamePassPrice": 345
+      }
+    },
+    "8209640691": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 7,
+        "avgGamePassPrice": 153
+      }
+    },
+    "8366716517": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 2,
+        "avgGamePassPrice": 214
+      }
+    },
+    "7274244096": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 11,
+        "avgGamePassPrice": 244
+      }
+    },
+    "8974769492": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 9,
+        "avgGamePassPrice": 393
+      }
+    },
+    "9344307274": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "4807308814": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 4,
+        "avgGamePassPrice": 499
+      }
+    },
+    "9345726704": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 1,
+        "avgGamePassPrice": 80
+      }
+    },
+    "8687770965": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 3,
+        "avgGamePassPrice": 349
+      }
+    },
+    "7872343282": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "4934163223": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 8,
+        "avgGamePassPrice": 190
+      }
+    },
+    "9145282410": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 10,
+        "avgGamePassPrice": 143
+      }
+    },
+    "8513782720": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "8722889197": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "8380716357": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 5,
+        "avgGamePassPrice": 1240
+      }
+    },
+    "8909575988": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 3,
+        "avgGamePassPrice": 299
+      }
+    },
+    "8191429227": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 6,
+        "avgGamePassPrice": 147
+      }
+    },
+    "7920020824": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 3,
+        "avgGamePassPrice": 516
+      }
+    },
+    "8937766034": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 2,
+        "avgGamePassPrice": 599
+      }
+    },
+    "8285936293": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 5,
+        "avgGamePassPrice": 155
+      }
+    },
+    "6657933195": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "9153264869": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 4,
+        "avgGamePassPrice": 209
+      }
+    },
+    "7996365376": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 2,
+        "avgGamePassPrice": 238
+      }
+    },
+    "7862121304": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 1,
+        "avgGamePassPrice": 50
+      }
+    },
+    "9083680687": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 2,
+        "avgGamePassPrice": 224
+      }
+    },
+    "8809915587": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 2,
+        "avgGamePassPrice": 164
+      }
+    },
+    "4582358979": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 22,
+        "avgGamePassPrice": 56
+      }
+    },
+    "5677613211": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 3,
+        "avgGamePassPrice": 349
+      }
+    },
+    "7471000866": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 23,
+        "avgGamePassPrice": 438
+      }
+    },
+    "8791358380": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "5877971206": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 3,
+        "avgGamePassPrice": 500
+      }
+    },
+    "8795154789": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "8181391950": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 3,
+        "avgGamePassPrice": 180
+      }
+    },
+    "6011188518": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 11,
+        "avgGamePassPrice": 772
+      }
+    },
+    "8180505473": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 6,
+        "avgGamePassPrice": 339
+      }
+    },
+    "9280810829": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "6964415405": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 3,
+        "avgGamePassPrice": 249
+      }
+    },
+    "7364297396": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "5421899973": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 10,
+        "avgGamePassPrice": 439
+      }
+    },
+    "6664476231": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 6,
+        "avgGamePassPrice": 599
+      }
+    },
+    "5111507958": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 4,
+        "avgGamePassPrice": 282
+      }
+    },
+    "6751447237": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 5,
+        "avgGamePassPrice": 559
+      }
+    },
+    "8767738036": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 12,
+        "avgGamePassPrice": 320
+      }
+    },
+    "9076366951": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 9,
+        "avgGamePassPrice": 238
+      }
+    },
+    "8108508529": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 2,
+        "avgGamePassPrice": 249
+      }
+    },
+    "5939817752": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 1,
+        "avgGamePassPrice": 1599
+      }
+    },
+    "8618660961": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 3,
+        "avgGamePassPrice": 257
+      }
+    },
+    "7143545906": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 12,
+        "avgGamePassPrice": 348
+      }
+    },
+    "7115773109": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 8,
+        "avgGamePassPrice": 499
+      }
+    },
+    "9237953067": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 29,
+        "avgGamePassPrice": 257
+      }
+    },
+    "8964336233": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 5,
+        "avgGamePassPrice": 141
+      }
+    },
+    "8553877788": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 25,
+        "avgGamePassPrice": 183
+      }
+    },
+    "8014099969": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 6,
+        "avgGamePassPrice": 256
+      }
+    },
+    "5239362765": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 6,
+        "avgGamePassPrice": 134
+      }
+    },
+    "9274442348": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 7,
+        "avgGamePassPrice": 245
+      }
+    },
+    "6738135827": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 5,
+        "avgGamePassPrice": 150
+      }
+    },
+    "5682590751": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 14,
+        "avgGamePassPrice": 286
+      }
+    },
+    "5972059550": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 19,
+        "avgGamePassPrice": 453
+      }
+    },
+    "4867536568": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 2,
+        "avgGamePassPrice": 299
+      }
+    },
+    "9216306565": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 27,
+        "avgGamePassPrice": 215
+      }
+    },
+    "7089588429": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 9,
+        "avgGamePassPrice": 120
+      }
+    },
+    "8724609315": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 7,
+        "avgGamePassPrice": 440
+      }
+    },
+    "6736482454": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 9,
+        "avgGamePassPrice": 388
+      }
+    },
+    "8475779172": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 2,
+        "avgGamePassPrice": 572
+      }
+    },
+    "7812923977": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 4,
+        "avgGamePassPrice": 124
+      }
+    },
+    "6596627293": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 7,
+        "avgGamePassPrice": 642
+      }
+    },
+    "4540138978": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 8,
+        "avgGamePassPrice": 359
+      }
+    },
+    "8507699752": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 8,
+        "avgGamePassPrice": 81
+      }
+    },
+    "6329693946": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "6336741296": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 5,
+        "avgGamePassPrice": 394
+      }
+    },
+    "7738860417": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 10,
+        "avgGamePassPrice": 196
+      }
+    },
+    "8232540509": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 8,
+        "avgGamePassPrice": 492
+      }
+    },
+    "9326439632": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 5,
+        "avgGamePassPrice": 319
+      }
+    },
+    "6255392043": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 12,
+        "avgGamePassPrice": 355
+      }
+    },
+    "8284288303": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 2,
+        "avgGamePassPrice": 349
+      }
+    },
+    "4668461757": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "6880380861": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 16,
+        "avgGamePassPrice": 822
+      }
+    },
+    "8214054500": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "7658839393": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 2,
+        "avgGamePassPrice": 375
+      }
+    },
+    "9291952559": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 4,
+        "avgGamePassPrice": 85
+      }
+    },
+    "7458874788": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 5,
+        "avgGamePassPrice": 3100
+      }
+    },
+    "5026970880": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 12,
+        "avgGamePassPrice": 503
+      }
+    },
+    "9168386959": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "7661221876": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 41,
+        "avgGamePassPrice": 535
+      }
+    },
+    "5803093656": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 1,
+        "avgGamePassPrice": 899
+      }
+    },
+    "8574830649": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "8225616258": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "4987856151": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 0,
+        "avgGamePassPrice": null
+      }
+    },
+    "5493012775": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 8,
+        "avgGamePassPrice": 747
+      }
+    },
+    "7069852763": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 5,
+        "avgGamePassPrice": 224
+      }
+    },
+    "7486728492": {
+      "fetchedAt": "2026-01-05T22:27:58.120Z",
+      "stats": {
+        "gamePassCount": 8,
+        "avgGamePassPrice": 237
+      }
+    }
+  }
+}
