@@ -12,6 +12,7 @@ from .edr_model import compute_edr_daily
 from .rolling_features import compute_rolling_features
 from .rebalance import rebalance_weekly, RebalanceResult
 from .parameters import EDRParams, RollingParams, RebalanceParams, StorageParams
+from .index_level import build_index_level_series, write_index_level_exports
 
 
 def export_rebalance_outputs(
@@ -226,7 +227,17 @@ def run_weekly_rebalance(
         export_df=export_df,
         membership_history=membership_history,
     )
+    snapshots = pd.read_parquet(Path(storage.index_data_dir) / storage.snapshots_file)
+    membership_all = pd.read_parquet(Path(storage.index_data_dir) / storage.membership_file)
 
+    index_ts = build_index_level_series(
+        snapshots=snapshots,
+        membership_history=membership_all,
+        base_level=1000.0,
+        eps=1.0,
+    )
+
+    write_index_level_exports(index_ts, exports_dir=str(exports_dir))
     print(f"[index_engine] Weekly report written: {report_path}")
     return result
 
