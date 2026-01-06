@@ -270,15 +270,6 @@ def run_weekly_rebalance(
     membership_all.to_parquet(membership_path, index=False)
 
     # --- Export constituents: dated + latest ---
-    # We expect you already updated export_rebalance_outputs earlier; if not, just load from membership/joins.
-    # Minimal reliable approach: build export_df from the already-exported latest CSV if you have it.
-    # BUT here we create it directly from result.export_df if your rebalance returns ranked + membership only.
-    #
-    # Best practice: keep export builder in one function. For now, assume you have:
-    #   from .exports import build_export_df
-    # If you don't, you can keep using the existing export_rebalance_outputs and return export_df.
-    #from .exports import export_rebalance_outputs  # expects updated signature below
-
     snapshots_path = out_dir / storage.snapshots_file
     snapshots = _read_parquet_if_exists(snapshots_path)
 
