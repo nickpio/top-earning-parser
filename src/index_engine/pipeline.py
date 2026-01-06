@@ -1,263 +1,344 @@
+# src/index_engine/pipeline.py
 from __future__ import annotations
 
-import json
 from pathlib import Path
-from typing import Optional, Tuple, Union, cast
-from .report import write_weekly_report
+from typing import Optional, cast, List
 
 import pandas as pd
 
-from .io_runs import discover_pruned_run_files, load_pruned_file
+from .parameters import EDRParams, RollingParams, RebalanceParams, StorageParams
+from .io_runs import load_pruned_file  # <- your loader: (path: Path) -> pd.DataFrame
 from .edr_model import compute_edr_daily
 from .rolling_features import compute_rolling_features
-from .rebalance import rebalance_weekly, RebalanceResult
-from .parameters import EDRParams, RollingParams, RebalanceParams, StorageParams
+from .rebalance import rebalance_weekly
+from .report import write_weekly_report
 from .index_level import build_index_level_series, write_index_level_exports
 
 
-def export_rebalance_outputs(
-    result_membership: pd.DataFrame,
-    ranked_universe: pd.DataFrame,
-    snapshots: pd.DataFrame,
-    out_dir: Path,
-) -> None:
-    """
-    Writes:
-      - rte100_<rebalance_date>.csv
-      - rte100_<rebalance_date>.json
-      - rte100_latest.csv
-      - rte100_latest.json
+def _as_df(obj: object) -> pd.DataFrame:
+    if isinstance(obj, pd.DataFrame):
+        return obj
+    if isinstance(obj, pd.Series):
+        return obj.to_frame()
+    return pd.DataFrame()
 
-    Includes human-friendly fields by joining membership with latest snapshot metadata.
-    """
-    out_dir.mkdir(parents=True, exist_ok=True)
 
-    if result_membership.empty:
-        return
-
-    # membership has: rebalance_date, universeId, rank, in_index, weight
-    reb_date = str(result_membership["rebalance_date"].iloc[0])
-
-    # Get latest snapshot (as-of rebalance date) to pull name/developer + latest metrics
-    snaps = snapshots.copy()
-    snaps["snapshot_date"] = pd.to_datetime(snaps["snapshot_date"]).dt.date
-
-    # For each universeId, get latest snapshot row up to rebalance date
-    asof = pd.to_datetime(reb_date).date()
-    snaps = cast(pd.DataFrame, snaps[snaps["snapshot_date"] <= asof])
-    latest_snap = cast(
-        pd.DataFrame,
-        snaps.sort_values(by=["universeId", "snapshot_date"])
-        .groupby("universeId", as_index=False)
-        .tail(1)
-    )
-
-    # Join membership with latest snapshot + ranked info (score, edr_7d_mean, etc.)
-    export_df = result_membership.merge(
-        latest_snap,
-        on="universeId",
-        how="left",
-        suffixes=("", "_snap"),
-    )
-
-    # ranked_universe contains score + feature columns; join for visibility
-    if ranked_universe is not None and not ranked_universe.empty:
-        export_df = export_df.merge(
-            ranked_universe[["universeId", "score", "edr_7d_mean", "edr_mom", "edr_14d_vol", "coverage_7d"]],
-            on="universeId",
-            how="left",
-        )
-
-    # Keep it readable
-    preferred_cols = [
-        "rebalance_date", "rank", "universeId", "name", "developer",
-        "weight",
-        "edr_7d_mean", "edr_mom", "edr_14d_vol", "coverage_7d",
-        "avg_ccu", "visits", "favorites", "likes",
-        "monetization_count", "median_price", "price_dispersion",
-        "engagement_score", "edr_raw",
-        "score",
-    ]
-    cols = [c for c in preferred_cols if c in export_df.columns]
-    export_df_filtered = cast(pd.DataFrame, export_df[cols])
-    export_df = cast(pd.DataFrame, export_df_filtered.sort_values(by="rank").reset_index(drop=True))
-
-    # Write dated outputs
-    csv_path = out_dir / f"rte100_{reb_date}.csv"
-    json_path = out_dir / f"rte100_{reb_date}.json"
-
-    export_df.to_csv(csv_path, index=False)
-    export_df.to_json(json_path, orient="records", indent=2)
-
-    # Write latest symlinks (copy files)
-    export_df.to_csv(out_dir / "rte100_latest.csv", index=False)
-    export_df.to_json(out_dir / "rte100_latest.json", orient="records", indent=2)
-
-    print(f"[index_engine] Exported: {csv_path}")
-    print(f"[index_engine] Exported: {json_path}")
-    print(f"[index_engine] Exported: {out_dir/'rte100_latest.csv'}")
-    print(f"[index_engine] Exported: {out_dir/'rte100_latest.json'}")
-
-def _ensure_dir(p: Union[str, Path]) -> Path:
-    p = Path(p)
+def _ensure_dir(p: Path) -> None:
     p.mkdir(parents=True, exist_ok=True)
-    return p
 
 
-def load_parquet_if_exists(path: Path) -> pd.DataFrame:
-    return pd.read_parquet(path) if path.exists() else pd.DataFrame()
-
-
-def save_parquet(df: pd.DataFrame, path: Path) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    df.to_parquet(path, index=False)
+def _find_pruned_files(runs_dir: Path) -> list[Path]:
+    """
+    Finds pruned json files under runs/YYYY-MM-DD/pruned/*.json
+    Returns sorted list of files (stable order).
+    """
+    if not runs_dir.exists():
+        return []
+    files = sorted(runs_dir.glob("*/pruned/*.json"))
+    return files
 
 
 def update_snapshots_from_runs(
-    runs_dir: Union[str, Path],
+    runs_dir: str,
     storage: StorageParams,
     edr_params: EDRParams,
 ) -> pd.DataFrame:
     """
-    Reads all run files and produces an append-only snapshots table (deduped by snapshot_date+universeId).
+    Reads all runs under runs_dir, computes per-day snapshots with EDR, and appends to snapshots.parquet.
+    Rebuild approach: load all files each run (simple + consistent).
     """
-    runs_dir = Path(runs_dir)
-    data_dir = _ensure_dir(storage.index_data_dir)
-    snapshots_path = data_dir / storage.snapshots_file
+    runs_path = Path(runs_dir)
+    pruned_files = _find_pruned_files(runs_path)
 
-    existing = load_parquet_if_exists(snapshots_path)
+    rows: list[pd.DataFrame] = []
+    for f in pruned_files:
+        # Expect path like runs/2026-01-05/pruned/...json
+        run_date = f.parent.parent.name  # YYYY-MM-DD
+        df_day = load_pruned_file(f, run_date)
+        df_day = _as_df(df_day).copy()
 
-    run_files = discover_pruned_run_files(runs_dir)
-    if not run_files:
-        raise FileNotFoundError(f"No pruned runs found under {runs_dir}")
+        df_day["snapshot_date"] = run_date
 
-    frames = []
-    for date_str, fp in run_files:
-        df_day = load_pruned_file(fp, snapshot_date=date_str)
+        # Compute EDR + derived columns
         df_day = compute_edr_daily(df_day, edr_params)
 
-        keep = [
-            "snapshot_date", "universeId", "name", "developer",
-            "avg_ccu", "visits", "favorites", "likes",
-            "monetization_count", "median_price", "price_dispersion",
-            "engagement_score", "dau_est", "pcr", "aspu",
-            "spend_revenue", "premium_revenue", "edr_raw",
-        ]
-        keep = [c for c in keep if c in df_day.columns]
-        frames.append(df_day[keep].copy())
+        rows.append(df_day)
 
-    snapshots_new = pd.concat(frames, ignore_index=True)
-
-    if not existing.empty:
-        merged = pd.concat([existing, snapshots_new], ignore_index=True)
+    if rows:
+        snapshots = pd.concat(rows, ignore_index=True)
     else:
-        merged = snapshots_new
+        snapshots = pd.DataFrame()
 
-    merged = merged.sort_values(by=["snapshot_date", "universeId"]).drop_duplicates(
-        subset=["snapshot_date", "universeId"], keep="last"
-    )
+    # Normalize snapshot_date type
+    if not snapshots.empty and "snapshot_date" in snapshots.columns:
+        snapshots["snapshot_date"] = pd.to_datetime(snapshots["snapshot_date"], errors="coerce").dt.date.astype(str)
 
-    save_parquet(merged, snapshots_path)
-    return merged
+    out_dir = Path(storage.index_data_dir)
+    _ensure_dir(out_dir)
 
+    snap_path = out_dir / storage.snapshots_file
+    snapshots.to_parquet(snap_path, index=False)
+    return snapshots
+
+def _series_dt_date(df: pd.DataFrame, col: str) -> pd.Series:
+    """Return a date (python date) Series aligned to df.index; missing -> NaT."""
+    if col not in df.columns:
+        return pd.Series([pd.NaT] * len(df), index=df.index, dtype="datetime64[ns]")
+    raw = pd.to_datetime(df[col], errors="coerce")
+    # normalize to midnight then convert to date via .dt.date (still Series)
+    s = pd.Series(raw, index=df.index).dt.normalize()
+    return cast(pd.Series, s)
 
 def rebuild_features(
     snapshots: pd.DataFrame,
     storage: StorageParams,
     rolling_params: RollingParams,
 ) -> pd.DataFrame:
-    data_dir = _ensure_dir(storage.index_data_dir)
-    features_path = data_dir / storage.features_file
+    """
+    Recomputes rolling features from snapshots and writes features.parquet.
+    """
+    feats = compute_rolling_features(_as_df(snapshots), rolling_params)
 
-    features = compute_rolling_features(snapshots, rolling_params)
-    save_parquet(features, features_path)
-    return features
+    out_dir = Path(storage.index_data_dir)
+    _ensure_dir(out_dir)
+
+    feat_path = out_dir / storage.features_file
+    _as_df(feats).to_parquet(feat_path, index=False)
+    return _as_df(feats)
 
 
+def _read_parquet_if_exists(path: Path) -> pd.DataFrame:
+    if path.exists():
+        return cast(pd.DataFrame, pd.read_parquet(path))
+    return pd.DataFrame()
+
+
+def _write_latest_copy(src: Path, dst: Path) -> None:
+    dst.write_text(src.read_text(encoding="utf-8"), encoding="utf-8")
+
+def export_rebalance_outputs(
+    result_membership_obj: object,
+    ranked_universe_obj: object,
+    snapshots_obj: object,
+    exports_root: Path,
+    exports_day: Path,
+) -> pd.DataFrame:
+    """
+    Strict-safe exporter.
+
+    Writes:
+      exports/<YYYY-MM-DD>/rte100.csv
+      exports/<YYYY-MM-DD>/rte100.json
+      exports/rte100_latest.csv
+      exports/rte100_latest.json
+
+    Returns export_df (DataFrame).
+    """
+    exports_root.mkdir(parents=True, exist_ok=True)
+    exports_day.mkdir(parents=True, exist_ok=True)
+
+    result_membership = _as_df(result_membership_obj).copy()
+    ranked_universe = _as_df(ranked_universe_obj).copy()
+    snapshots = _as_df(snapshots_obj).copy()
+
+    if result_membership.empty:
+        return pd.DataFrame()
+
+    # --- rebalance date (ISO) ---
+    if "rebalance_date" not in result_membership.columns:
+        raise ValueError("membership missing 'rebalance_date'")
+
+    reb_raw = result_membership["rebalance_date"].iloc[0]
+    reb_date_iso = str(pd.to_datetime(reb_raw, errors="coerce").date())
+
+    # --- prepare snapshots (latest row per universeId as-of rebalance date) ---
+    latest_snap = pd.DataFrame({"universeId": []})
+    if (not snapshots.empty) and ("universeId" in snapshots.columns) and ("snapshot_date" in snapshots.columns):
+        snapshots = snapshots.copy()
+        snapshots["snapshot_date"] = _series_dt_date(snapshots, "snapshot_date").dt.date  # Series[date]
+
+        asof = pd.to_datetime(reb_date_iso).date()
+        mask = cast(pd.Series, snapshots["snapshot_date"] <= asof)
+        snaps_asof = snapshots.loc[mask].copy()
+
+        if not snaps_asof.empty:
+            snaps_asof = snaps_asof.sort_values(by=["universeId", "snapshot_date"], kind="stable")
+            # groupby/tail can be typed weirdly; cast it back
+            latest_snap = cast(
+                pd.DataFrame,
+                snaps_asof.groupby("universeId", as_index=False).tail(1),
+            )
+
+    # --- merge membership + latest snapshot ---
+    export_df = cast(
+        pd.DataFrame,
+        result_membership.merge(latest_snap, on="universeId", how="left", suffixes=("", "_snap")),
+    )
+
+    # --- merge ranked features (optional) ---
+    if (not ranked_universe.empty) and ("universeId" in ranked_universe.columns):
+        wanted: List[str] = ["universeId", "score", "edr_7d_mean", "edr_mom", "edr_14d_vol", "coverage_7d"]
+        cols: List[str] = [c for c in wanted if c in ranked_universe.columns]
+        if len(cols) > 1:
+            export_df = cast(
+                pd.DataFrame,
+                export_df.merge(ranked_universe.loc[:, cols], on="universeId", how="left"),
+            )
+
+    # --- column selection ---
+    preferred: List[str] = [
+        "rebalance_date", "rank", "universeId", "name", "developer",
+        "weight",
+        "score", "edr_7d_mean", "edr_mom", "edr_14d_vol", "coverage_7d",
+        "avg_ccu", "visits", "favorites", "likes",
+        "monetization_count", "median_price", "price_dispersion",
+        "engagement_score", "edr_raw",
+    ]
+    cols_out: List[str] = [c for c in preferred if c in export_df.columns]
+    export_df = export_df.loc[:, cols_out].copy()
+
+    # normalize rebalance_date column to ISO strings
+    if "rebalance_date" in export_df.columns:
+        export_df["rebalance_date"] = export_df["rebalance_date"].apply(
+            lambda x: str(pd.to_datetime(x, errors="coerce").date())
+        )
+
+    # sort by rank
+    if "rank" in export_df.columns:
+        raw_rank = pd.to_numeric(export_df["rank"], errors="coerce")
+        export_df["rank"] = pd.Series(raw_rank, index=export_df.index)
+        by_cols: List[str] = ["rank"]
+        export_df = export_df.sort_values(by=by_cols, kind="stable").reset_index(drop=True)
+
+    # --- write files ---
+    dated_csv = exports_day / "rte100.csv"
+    dated_json = exports_day / "rte100.json"
+    latest_csv = exports_root / "rte100_latest.csv"
+    latest_json = exports_root / "rte100_latest.json"
+
+    export_df.to_csv(dated_csv, index=False)
+    export_df.to_json(dated_json, orient="records", indent=2)
+
+    export_df.to_csv(latest_csv, index=False)
+    export_df.to_json(latest_json, orient="records", indent=2)
+
+    print(f"[index_engine] Exported dated:  {dated_csv}")
+    print(f"[index_engine] Exported dated:  {dated_json}")
+    print(f"[index_engine] Exported latest: {latest_csv}")
+    print(f"[index_engine] Exported latest: {latest_json}")
+
+    return export_df
 def run_weekly_rebalance(
     features: pd.DataFrame,
     rebalance_date: str,
     storage: StorageParams,
     rebalance_params: RebalanceParams,
-) -> RebalanceResult:
-    data_dir = _ensure_dir(storage.index_data_dir)
-    membership_path = data_dir / storage.membership_file
+) -> None:
+    """
+    Runs rebalance for a specific date, writes membership.parquet, and writes exports:
+      exports/<YYYY-MM-DD>/*  (dated snapshot)
+      exports/*              (latest copies)
+    """
+    out_dir = Path(storage.index_data_dir)
+    _ensure_dir(out_dir)
 
-    prior = load_parquet_if_exists(membership_path)
+    exports_root = out_dir / "exports"
+    exports_day = exports_root / rebalance_date
+    _ensure_dir(exports_root)
+    _ensure_dir(exports_day)
+
+    membership_path = out_dir / storage.membership_file
+    membership_all = _read_parquet_if_exists(membership_path)
+
+    # Keep 'prior' for entrants/exits if you want "vs last rebalance"
+    prior = membership_all.copy()
 
     result = rebalance_weekly(
-        features=features,
+        features=_as_df(features),
         rebalance_date=rebalance_date,
         params=rebalance_params,
         prior_membership=prior if not prior.empty else None,
     )
 
-    # append membership row(s)
-    if prior.empty:
-        merged = result.membership
+    # Append/save membership history
+    new_membership = _as_df(result.membership).copy()
+    if membership_all.empty:
+        membership_all = new_membership
     else:
-        merged = pd.concat([prior, result.membership], ignore_index=True)
+        membership_all = pd.concat([membership_all, new_membership], ignore_index=True)
 
-    save_parquet(merged, membership_path)
+    membership_all.to_parquet(membership_path, index=False)
 
-    # -- Export human-readable index outputs
-    exports_dir = Path(storage.index_data_dir) / "exports"
-    export_rebalance_outputs(
-        result_membership=result.membership,
-        ranked_universe=result.ranked,
-        snapshots=pd.read_parquet(Path(storage.index_data_dir) / storage.snapshots_file),
-        out_dir=exports_dir,
+    # --- Export constituents: dated + latest ---
+    # We expect you already updated export_rebalance_outputs earlier; if not, just load from membership/joins.
+    # Minimal reliable approach: build export_df from the already-exported latest CSV if you have it.
+    # BUT here we create it directly from result.export_df if your rebalance returns ranked + membership only.
+    #
+    # Best practice: keep export builder in one function. For now, assume you have:
+    #   from .exports import build_export_df
+    # If you don't, you can keep using the existing export_rebalance_outputs and return export_df.
+    #from .exports import export_rebalance_outputs  # expects updated signature below
+
+    snapshots_path = out_dir / storage.snapshots_file
+    snapshots = _read_parquet_if_exists(snapshots_path)
+
+    export_df = export_rebalance_outputs(
+    result_membership_obj=result.membership,
+    ranked_universe_obj=result.ranked,
+    snapshots_obj=snapshots,
+    exports_root=exports_root,
+    exports_day=exports_day,
+)
+
+    # --- Weekly report: dated + latest ---
+    dated_report_path = write_weekly_report(
+        exports_dir=str(exports_day),
+        rebalance_date=rebalance_date,
+        export_df=_as_df(export_df),
+        membership_history=_as_df(membership_all),
     )
-    # Build weekly report (markdown)
-    membership_history = prior if not prior.empty else None
-    exports_dir = Path(storage.index_data_dir) / "exports"
+    latest_report_path = exports_root / "rte100_report_latest.md"
+    _write_latest_copy(Path(dated_report_path), latest_report_path)
 
-    # Rebalance date as ISO string
-    reb_date_iso = str(pd.to_datetime(result.membership["rebalance_date"].iloc[0]).date())
-
-    # Load the latest exported top-100 table (human-readable export)
-    export_df = pd.read_csv(exports_dir / "rte100_latest.csv")
-
-    # Use prior membership history (for entrants/exits) if available
-    membership_history = prior if (prior is not None and not prior.empty) else None
-
-    report_path = write_weekly_report(
-        exports_dir=str(exports_dir),
-        rebalance_date=reb_date_iso,
-        export_df=export_df,
-        membership_history=membership_history,
-    )
-    snapshots = pd.read_parquet(Path(storage.index_data_dir) / storage.snapshots_file)
-    membership_all = pd.read_parquet(Path(storage.index_data_dir) / storage.membership_file)
-
+    # --- Index level: dated + latest ---
     index_ts = build_index_level_series(
-        snapshots=snapshots,
-        membership_history=membership_all,
+        snapshots=_as_df(snapshots),
+        membership_history=_as_df(membership_all),
         base_level=1000.0,
         eps=1.0,
     )
 
-    write_index_level_exports(index_ts, exports_dir=str(exports_dir))
-    print(f"[index_engine] Weekly report written: {report_path}")
-    return result
+    write_index_level_exports(_as_df(index_ts), exports_dir=str(exports_day))
+    write_index_level_exports(_as_df(index_ts), exports_dir=str(exports_root))
+
+    print(f"[index_engine] Rebalance complete: {rebalance_date}")
+    print(f"[index_engine] Exports dated: {exports_day}")
+    print(f"[index_engine] Exports latest: {exports_root}")
 
 
 def run_pipeline(
-    runs_dir: Union[str, Path] = "runs",
-    rebalance_date: Optional[str] = None,
-    edr_params: EDRParams = EDRParams(),
-    rolling_params: RollingParams = RollingParams(),
-    rebalance_params: RebalanceParams = RebalanceParams(),
-    storage: StorageParams = StorageParams(),
-) -> Tuple[pd.DataFrame, pd.DataFrame]:
+    runs_dir: str,
+    rebalance_date: Optional[str],
+    edr_params: EDRParams,
+    rolling_params: RollingParams,
+    rebalance_params: RebalanceParams,
+    storage: StorageParams,
+) -> None:
     """
-    Daily: update snapshots + rebuild features
-    Weekly: optional rebalance if rebalance_date is provided
+    Orchestrates:
+      1) snapshots rebuild from runs/
+      2) rolling feature rebuild
+      3) optional weekly rebalance (and export/report/index level)
     """
-    snapshots = update_snapshots_from_runs(runs_dir, storage, edr_params)
-    features = rebuild_features(snapshots, storage, rolling_params)
+    snapshots = update_snapshots_from_runs(runs_dir=runs_dir, storage=storage, edr_params=edr_params)
+    features = rebuild_features(snapshots=snapshots, storage=storage, rolling_params=rolling_params)
 
     if rebalance_date is not None:
-        _ = run_weekly_rebalance(features, rebalance_date, storage, rebalance_params)
-
-    return snapshots, features
+        # Normalize to ISO date string
+        reb_date_iso = str(pd.to_datetime(rebalance_date, errors="coerce").date())
+        run_weekly_rebalance(
+            features=features,
+            rebalance_date=reb_date_iso,
+            storage=storage,
+            rebalance_params=rebalance_params,
+        )
