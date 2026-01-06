@@ -645,6 +645,13 @@
         "avgGamePassPrice": 2499
       }
     },
+    "2494294834": {
+      "fetchedAt": "2026-01-06T22:52:18.304Z",
+      "stats": {
+        "gamePassCount": 12,
+        "avgGamePassPrice": 537
+      }
+    },
     "2499076778": {
       "fetchedAt": "2026-01-05T22:27:58.120Z",
       "stats": {
@@ -2925,6 +2932,76 @@
       "stats": {
         "gamePassCount": 6,
         "avgGamePassPrice": 407
+      }
+    },
+    "9363735110": {
+      "fetchedAt": "2026-01-06T22:52:18.304Z",
+      "stats": {
+        "gamePassCount": 1,
+        "avgGamePassPrice": 99
+      }
+    },
+    "4785982047": {
+      "fetchedAt": "2026-01-06T22:52:18.304Z",
+      "stats": {
+        "gamePassCount": 19,
+        "avgGamePassPrice": 496
+      }
+    },
+    "8967864843": {
+      "fetchedAt": "2026-01-06T22:52:18.304Z",
+      "stats": {
+        "gamePassCount": 2,
+        "avgGamePassPrice": 135
+      }
+    },
+    "9329963026": {
+      "fetchedAt": "2026-01-06T22:52:18.304Z",
+      "stats": {
+        "gamePassCount": 3,
+        "avgGamePassPrice": 432
+      }
+    },
+    "5479908441": {
+      "fetchedAt": "2026-01-06T22:52:18.304Z",
+      "stats": {
+        "gamePassCount": 1,
+        "avgGamePassPrice": 799
+      }
+    },
+    "6786784563": {
+      "fetchedAt": "2026-01-06T22:52:18.304Z",
+      "stats": {
+        "gamePassCount": 12,
+        "avgGamePassPrice": 633
+      }
+    },
+    "9147235238": {
+      "fetchedAt": "2026-01-06T22:52:18.304Z",
+      "stats": {
+        "gamePassCount": 9,
+        "avgGamePassPrice": 421
+      }
+    },
+    "9101545371": {
+      "fetchedAt": "2026-01-06T22:52:18.304Z",
+      "stats": {
+        "gamePassCount": 3,
+        "avgGamePassPrice": 299
+      }
+    },
+    "8854196497": {
+      "fetchedAt": "2026-01-06T22:52:18.304Z",
+      "stats": {
+        "gamePassCount": 7,
+        "avgGamePassPrice": 265
+      }
+    },
+    "9253055099": {
+      "fetchedAt": "2026-01-06T22:52:18.304Z",
+      "stats": {
+        "gamePassCount": 7,
+        "avgGamePassPrice": 188
       }
     }
   }
