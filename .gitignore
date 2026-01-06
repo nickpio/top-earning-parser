@@ -1,8 +1,49 @@
+# Dependencies
+node_modules/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+Desktop/top-earning-parser/
+venv/
+env/
+ENV/
+.venv/
+
+# Python distribution / packaging
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Generated data and reports
+data/*.json
+reports/
+runs/
+src/tools/tmp/
 
 # Playwright
-node_modules/
 /test-results/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env.local
+.env.*.local
