@@ -189,6 +189,10 @@
       "fetchedAt": "2026-01-13T21:35:49.170Z",
       "favoritesCount": 355030
     },
+    "911750776": {
+      "fetchedAt": "2026-01-18T23:20:18.705Z",
+      "favoritesCount": 4334711
+    },
     "972475338": {
       "fetchedAt": "2026-01-13T21:35:49.171Z",
       "favoritesCount": 1718442
@@ -570,8 +574,8 @@
       "favoritesCount": 379753
     },
     "3846592040": {
-      "fetchedAt": "2026-01-06T03:54:58.304Z",
-      "favoritesCount": 166058
+      "fetchedAt": "2026-01-18T23:20:18.703Z",
+      "favoritesCount": 166507
     },
     "3864279452": {
       "fetchedAt": "2026-01-06T03:54:58.305Z",
@@ -1522,8 +1526,8 @@
       "favoritesCount": 18539
     },
     "6596627293": {
-      "fetchedAt": "2026-01-06T03:54:58.305Z",
-      "favoritesCount": 660483
+      "fetchedAt": "2026-01-18T23:20:18.705Z",
+      "favoritesCount": 674965
     },
     "9374636864": {
       "fetchedAt": "2026-01-13T21:35:49.170Z",
@@ -1992,6 +1996,38 @@
     "8435447325": {
       "fetchedAt": "2026-01-15T22:57:58.640Z",
       "favoritesCount": 94442
+    },
+    "8822841940": {
+      "fetchedAt": "2026-01-18T23:20:18.705Z",
+      "favoritesCount": 9144
+    },
+    "7527828266": {
+      "fetchedAt": "2026-01-18T23:20:18.705Z",
+      "favoritesCount": 512950
+    },
+    "7811316908": {
+      "fetchedAt": "2026-01-18T23:20:18.705Z",
+      "favoritesCount": 42372
+    },
+    "4786569061": {
+      "fetchedAt": "2026-01-18T23:20:18.705Z",
+      "favoritesCount": 155389
+    },
+    "9302287416": {
+      "fetchedAt": "2026-01-18T23:20:18.705Z",
+      "favoritesCount": 6186
+    },
+    "8164168204": {
+      "fetchedAt": "2026-01-18T23:20:18.705Z",
+      "favoritesCount": 24957
+    },
+    "9354709602": {
+      "fetchedAt": "2026-01-18T23:20:18.705Z",
+      "favoritesCount": 13443
+    },
+    "6682461205": {
+      "fetchedAt": "2026-01-18T23:20:18.705Z",
+      "favoritesCount": 26148
     }
   }
 }
