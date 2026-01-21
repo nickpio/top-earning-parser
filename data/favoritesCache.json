@@ -626,8 +626,8 @@
       "favoritesCount": 20883
     },
     "4126908979": {
-      "fetchedAt": "2026-01-13T21:35:49.170Z",
-      "favoritesCount": 162252
+      "fetchedAt": "2026-01-21T17:03:00.648Z",
+      "favoritesCount": 162661
     },
     "4130569984": {
       "fetchedAt": "2026-01-20T22:16:25.248Z",
@@ -2124,6 +2124,38 @@
     "6867859535": {
       "fetchedAt": "2026-01-20T22:16:25.248Z",
       "favoritesCount": 13444
+    },
+    "9497625867": {
+      "fetchedAt": "2026-01-21T17:03:00.646Z",
+      "favoritesCount": 332311
+    },
+    "9513686983": {
+      "fetchedAt": "2026-01-21T17:03:00.648Z",
+      "favoritesCount": 308025
+    },
+    "6747101438": {
+      "fetchedAt": "2026-01-21T17:03:00.648Z",
+      "favoritesCount": 189862
+    },
+    "5561677715": {
+      "fetchedAt": "2026-01-21T17:03:00.648Z",
+      "favoritesCount": 54828
+    },
+    "6763123315": {
+      "fetchedAt": "2026-01-21T17:03:00.648Z",
+      "favoritesCount": 47612
+    },
+    "8314449748": {
+      "fetchedAt": "2026-01-21T17:03:00.648Z",
+      "favoritesCount": 336027
+    },
+    "6780150139": {
+      "fetchedAt": "2026-01-21T17:03:00.648Z",
+      "favoritesCount": 4890
+    },
+    "9076366951": {
+      "fetchedAt": "2026-01-21T17:03:00.648Z",
+      "favoritesCount": 345785
     }
   }
 }
