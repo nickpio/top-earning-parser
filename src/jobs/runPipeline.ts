@@ -54,7 +54,7 @@ async function main() {
 
     console.log("\n✂️  Step 2: Pruning and organizing data...");
     await runTS("src/jobs/pruneReport.ts", ["--inDir", rawDir, "--outDir", prunedDir]);
-    await runTS("src/jobs/exportPrunedToOds.ts", ["--inDir", prunedDir, "--outDir", prunedDir]);
+    await runTS("src/jobs/exportPrunedToODS.ts", ["--inDir", prunedDir, "--outDir", prunedDir]);
   } else {
     console.log("\n⏭️  Skipping scrape (--skip-scrape)");
   }

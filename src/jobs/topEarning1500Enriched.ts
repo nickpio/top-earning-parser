@@ -29,6 +29,8 @@ function ageDays(createdIso?: string): number | null {
 type Row = {
   rank: number;
   universeId: number;
+  rootPlaceId: number | null;
+  scrapedAt: string;
 
   name: string;
   description: string;
@@ -51,6 +53,7 @@ type Row = {
 
 async function main() {
   const limit = 1500;
+  const scrapedAt = new Date().toISOString();
 
   const { items } = await fetchTopEarningUniverseIds({
     limit,
@@ -146,6 +149,8 @@ if (staleOrMissingFavs.length > 0) {
     rows.push({
       rank: it.rank,
       universeId: it.universeId,
+      rootPlaceId: typeof d?.rootPlaceId === "number" ? d.rootPlaceId : null,
+      scrapedAt,
 
       name: d?.name ?? "",
       description: d?.description ?? "",
