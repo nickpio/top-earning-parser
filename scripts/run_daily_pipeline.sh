@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Daily RTE100 Pipeline Runner
-# This script should be run via cron
+# This script should be run via cron at a FIXED time of day: concurrent-player
+# snapshots are time-of-day dependent, so a consistent hour keeps the index comparable.
 
 set -e  # Exit on error
 
@@ -11,9 +12,9 @@ cd "$(dirname "$0")/.."
 # Activate virtual environment (if using one)
 # source .venv/bin/activate
 
-# Run the pipeline
+# Run the pipeline: scrape -> prune -> index engine (EDR, features, rebalance, exports)
 echo "$(date): Starting RTE100 pipeline..."
-python3 run_index_engine.py --rebalance-today
+npm run pipeline
 
 # Commit and push results to git
 echo "$(date): Committing results..."

@@ -1,0 +1,67 @@
+{
+  "model_version": "2.0",
+  "generated_at": "2026-09-16T17:29:21+00:00",
+  "rebalance_date": "2026-01-20",
+  "n_constituents": 100,
+  "universe_size": 408,
+  "snapshot_dates": [
+    "2026-01-06",
+    "2026-01-07",
+    "2026-01-08",
+    "2026-01-09",
+    "2026-01-12",
+    "2026-01-13",
+    "2026-01-14",
+    "2026-01-15",
+    "2026-01-18",
+    "2026-01-19",
+    "2026-01-20",
+    "2026-01-21",
+    "2026-01-26"
+  ],
+  "robux_to_usd": 0.00266,
+  "params": {
+    "EDRParams": {
+      "dau_per_ccu": 20.0,
+      "base_arpdau_robux": 6.0,
+      "zipf_exponent": 0.8,
+      "intensity_ema_span": 7,
+      "intensity_bounds": [
+        0.05,
+        10.0
+      ],
+      "developer_share": 0.7,
+      "devex_usd_per_robux": 0.0038
+    },
+    "RollingParams": {
+      "mean_window_days": 7,
+      "vol_window_days": 14,
+      "vol_min_periods": 3,
+      "ema_fast": 7,
+      "ema_slow": 30
+    },
+    "RebalanceParams": {
+      "enter_rank": 90,
+      "exit_rank": 130,
+      "max_staleness_days": 2,
+      "min_observations_7d": 2,
+      "n_constituents": 100,
+      "max_weight": 0.1
+    },
+    "IndexParams": {
+      "base_level": 1000.0,
+      "level_column": "edr_7d_mean",
+      "warmup_observations": 3,
+      "history_days": 90
+    }
+  },
+  "validation": {
+    "description": "Spearman rank correlation with Roblox's Top-Earning chart position (rank 1 = top earner, so agreement is negative; -1 is perfect). `next_*` values predict the following snapshot's chart position from today's estimate \u2014 the out-of-sample test, since the chart is a model input.",
+    "n_dates": 13,
+    "spearman_model": -0.8616195294130718,
+    "spearman_ccu_only": -0.6209311799924919,
+    "next_spearman_model": -0.8475988153290136,
+    "next_spearman_ccu_only": -0.627072283874834,
+    "next_spearman_chart_persistence": 0.905936604383372
+  }
+}

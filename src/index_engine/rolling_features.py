@@ -1,45 +1,64 @@
 from __future__ import annotations
 
+import numpy as np
 import pandas as pd
 
 from .parameters import RollingParams
 
+FEATURE_COLUMNS: tuple[str, ...] = (
+    "obs_7d",
+    "coverage_7d",
+    "edr_7d_mean",
+    "edr_7d_mean_usd",
+    "ccu_7d_mean",
+    "edr_ema_fast",
+    "edr_ema_slow",
+    "edr_mom",
+    "edr_14d_vol",
+)
+
+
+def _time_rolling(df: pd.DataFrame, col: str, window_days: int, func: str, min_periods: int = 1) -> pd.Series:
+    """Calendar-day rolling aggregate per universeId, aligned to df.index."""
+    roll = df.groupby("universeId", sort=False).rolling(
+        f"{window_days}D", on="snapshot_date", min_periods=min_periods
+    )[col]
+    out = getattr(roll, func)()  # indexed by (universeId, snapshot_date)
+    key = pd.MultiIndex.from_frame(df.loc[:, ["universeId", "snapshot_date"]])
+    return pd.Series(out.reindex(key).to_numpy(), index=df.index, dtype="float64")
+
+
 def compute_rolling_features(history: pd.DataFrame, params: RollingParams) -> pd.DataFrame:
     """
-    history: time-series snapshots containing at minimum:
-    snapshot_date, universeID, avg_ccu, edr_raw
+    history: snapshot rows with at least snapshot_date, universeId, avg_ccu, edr_raw, edr_usd.
 
-    Produces rolling/EMA features per game:
-    edr_7d_mean, edr_ema7, edr_ema30, edr_mom, edr_14_vol
-    ccu_7d_mean
-    coverage_7d
+    Windows are calendar-based so missing days shorten the sample instead of
+    silently stretching the window across gaps.
     """
+    if history.empty:
+        return history.copy()
 
     df = history.copy()
     df["snapshot_date"] = pd.to_datetime(df["snapshot_date"])
-    df = df.sort_values(["universeId", "snapshot_date"])
+    df = df.sort_values(["universeId", "snapshot_date"], kind="stable")
+    g = df.groupby("universeId", sort=False)
 
-    g = df.groupby("universeId", group_keys=False)
+    w = params.mean_window_days
+    df["obs_7d"] = _time_rolling(df, "edr_raw", w, "count")
+    df["coverage_7d"] = df["obs_7d"] / float(w)
+    df["edr_7d_mean"] = _time_rolling(df, "edr_raw", w, "mean")
+    df["edr_7d_mean_usd"] = _time_rolling(df, "edr_usd", w, "mean")
+    df["ccu_7d_mean"] = _time_rolling(df, "avg_ccu", w, "mean")
 
-    # -- Coverage
-    df["coverage_7d"] = g["edr_raw"].transform(lambda s: s.rolling(7, min_periods=1).count() / 7.0)
+    df["edr_ema_fast"] = g["edr_raw"].transform(lambda s: s.ewm(span=params.ema_fast, adjust=False).mean())
+    df["edr_ema_slow"] = g["edr_raw"].transform(lambda s: s.ewm(span=params.ema_slow, adjust=False).mean())
+    slow = df["edr_ema_slow"].where(df["edr_ema_slow"] > 0)
+    df["edr_mom"] = (df["edr_ema_fast"] / slow).fillna(1.0)
 
-    # -- Rolling Means
-    df["edr_7d_mean"] = g["edr_raw"].transform(lambda s: s.rolling(7, min_periods=params.mean_7d_min_periods).mean())
-    df["ccu_7d_mean"] = g["avg_ccu"].transform(lambda s: s.rolling(7, min_periods=params.mean_7d_min_periods).mean())
+    vw = params.vol_window_days
+    std = _time_rolling(df, "edr_raw", vw, "std", min_periods=params.vol_min_periods)
+    mean = _time_rolling(df, "edr_raw", vw, "mean", min_periods=params.vol_min_periods)
+    df["edr_14d_vol"] = (std / mean.where(mean > 0)).replace([np.inf, -np.inf], np.nan).fillna(0.0)
 
-    # -- Rolling means fallback
-    df["edr_7d_mean"] = df["edr_7d_mean"].fillna(df["edr_raw"])
-    df["ccu_7d_mean"] = df["ccu_7d_mean"].fillna(df["avg_ccu"])
-
-    # -- EMAs and momentum
-    df["edr_ema7"] = g["edr_raw"].transform(lambda s: s.ewm(span=params.ema_fast, adjust=False).mean())
-    df["edr_ema30"] = g["edr_raw"].transform(lambda s: s.ewm(span=params.ema_slow, adjust=False).mean())
-    df["edr_mom"] = (df["edr_ema7"] / df["edr_ema30"].replace({0: pd.NA})).fillna(0.0)
-
-    # -- 14d volatility
-    rolling_std = g["edr_raw"].transform(lambda s: s.rolling(14, min_periods=2).std())
-    rolling_mean = g["edr_raw"].transform(lambda s: s.rolling(14, min_periods=2).mean())
-    df["edr_14d_vol"] = (rolling_std / rolling_mean.replace({0: pd.NA})).fillna(0.0)
-
-    return df
+    df["snapshot_date"] = df["snapshot_date"].dt.date.astype(str)
+    return df.reset_index(drop=True)

@@ -1,7 +1,8 @@
 // src/scrape/topEarning.ts
 //
 // Robust fetch of top-earning universeIds from Roblox explore-api.
-// - Scans the *entire* payload for universeId fields (number or numeric string)
+// - Reads the `games` array of each page in chart order (falls back to a
+//   document-order deep scan for universeId fields)
 // - Logs + writes the raw JSON to tmp/explore-dumps on failure
 //
 // Usage:
@@ -37,49 +38,46 @@ function safeSlug(s: string) {
 }
 
 /**
- * Deep-scan payload for any property named "universeId" (or common variants).
- * This avoids relying on a specific response shape.
+ * Extract universeIds from a sort-content page **in chart order**.
+ *
+ * Prefers the documented `games` array (sponsored tiles excluded). Falls back to
+ * a document-order deep scan for any property named "universeId" (or variants).
+ * Order matters: the position in this list is the Top-Earning rank, which the
+ * index engine uses to infer monetization intensity.
  */
-function deepExtractUniverseIds(payload: any): number[] {
+function extractUniverseIdsInOrder(payload: any): number[] {
   const out: number[] = [];
   const seen = new Set<number>();
-
-  const keys = new Set([
-    "universeid",
-    "universeId",
-    "universeID",
-    "universe_id",
-  ]);
-
-  const stack: any[] = [payload];
-  const visited = new Set<any>();
-
-  while (stack.length) {
-    const node = stack.pop();
-    if (!node || typeof node !== "object") continue;
-    if (visited.has(node)) continue;
-    visited.add(node);
-
-    if (Array.isArray(node)) {
-      for (const x of node) stack.push(x);
-      continue;
+  const push = (v: unknown) => {
+    const n = toPosInt(v);
+    if (n && !seen.has(n)) {
+      seen.add(n);
+      out.push(n);
     }
+  };
 
-    for (const [k, v] of Object.entries(node)) {
-      // If the key itself indicates universeId, accept it
-      if (keys.has(k) || keys.has(k.toLowerCase())) {
-        const n = toPosInt(v);
-        if (n && !seen.has(n)) {
-          seen.add(n);
-          out.push(n);
-        }
-      }
-
-      // Keep traversing
-      if (v && typeof v === "object") stack.push(v);
+  if (Array.isArray(payload?.games)) {
+    for (const g of payload.games) {
+      if (g && typeof g === "object" && !(g as any).isSponsored) push((g as any).universeId);
     }
+    if (out.length) return out;
   }
 
+  const keys = new Set(["universeid", "universeId", "universeID", "universe_id"]);
+  const visited = new Set<any>();
+  const walk = (node: any) => {
+    if (!node || typeof node !== "object" || visited.has(node)) return;
+    visited.add(node);
+    if (Array.isArray(node)) {
+      for (const x of node) walk(x);
+      return;
+    }
+    for (const [k, v] of Object.entries(node)) {
+      if (keys.has(k) || keys.has(k.toLowerCase())) push(v);
+      if (v && typeof v === "object") walk(v);
+    }
+  };
+  walk(payload);
   return out;
 }
 
@@ -193,7 +191,7 @@ export async function fetchTopEarningUniverseIds(params?: {
 
     const json = await fetchJson<ExploreApiResponse>(url);
 
-    const ids = deepExtractUniverseIds(json);
+    const ids = extractUniverseIdsInOrder(json);
 
     if (ids.length === 0) {
       const tag = safeSlug(`top-earning_page${page}_no-ids`);

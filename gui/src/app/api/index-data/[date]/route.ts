@@ -1,41 +1,23 @@
 import { NextResponse } from 'next/server';
-import { readFile } from 'fs/promises';
-import { join } from 'path';
 
-export async function GET(
-  request: Request,
-  { params }: { params: Promise<{ date: string }> }
-) {
-  try {
-    const { date } = await params;
+import { isValidDate, listDates, loadSnapshot } from '@/lib/data';
 
-    // Validate date format
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
-      return NextResponse.json({ error: 'Invalid date format' }, { status: 400 });
-    }
+export const dynamic = 'force-dynamic';
 
-    const indexDataPath = join(process.cwd(), '..', 'index_data', 'exports', date);
-
-    // Read both JSON files
-    const indexLevelData = await readFile(
-      join(indexDataPath, 'rte100_index_level.json'),
-      'utf-8'
-    );
-    const gamesData = await readFile(
-      join(indexDataPath, 'rte100.json'),
-      'utf-8'
-    );
-
-    return NextResponse.json({
-      date,
-      indexLevel: JSON.parse(indexLevelData),
-      games: JSON.parse(gamesData),
-    });
-  } catch (error) {
-    console.error('Error fetching index data:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch data for the specified date' },
-      { status: 404 }
-    );
+export async function GET(_request: Request, { params }: { params: Promise<{ date: string }> }) {
+  const { date } = await params;
+  if (!isValidDate(date)) {
+    return NextResponse.json({ error: 'Invalid date format, expected YYYY-MM-DD' }, { status: 400 });
   }
+
+  const dates = await listDates();
+  if (!dates.includes(date)) {
+    return NextResponse.json({ error: 'No data for the specified date', availableDates: dates }, { status: 404 });
+  }
+
+  const snapshot = await loadSnapshot(date);
+  if (!snapshot) {
+    return NextResponse.json({ error: 'Failed to load data for the specified date' }, { status: 500 });
+  }
+  return NextResponse.json(snapshot);
 }

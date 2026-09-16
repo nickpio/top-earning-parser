@@ -1,16 +1,24 @@
 {
   "name": "top-earning-parser",
-  "version": "1.0.0",
-  "description": "",
+  "version": "2.0.0",
+  "description": "RTE100: Roblox Top-Earning 100 index — scraper, EDR model and index engine",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "pipeline": "tsx src/jobs/runPipeline.ts",
+    "scrape": "tsx src/jobs/runPipeline.ts --skip-index",
+    "index": "python3 run_index_engine.py --rebalance-today",
+    "index:replay": "python3 run_index_engine.py --replay-all",
+    "index:validate": "python3 run_index_engine.py --validate",
+    "test:engine": "python3 -m pytest"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
     "@playwright/test": "^1.57.0",
-    "@types/node": "^25.0.3"
+    "@types/node": "^25.0.3",
+    "tsx": "^4.19.0"
   },
   "dependencies": {
     "xlsx": "^0.18.5"

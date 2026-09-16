@@ -4,6 +4,7 @@ import path from "node:path";
 import * as XLSX from "xlsx";
 
 type PrunedGameRow = {
+  topEarningRank: number | null;
   universeId: number;
   name: string;
   developer: string | null;
@@ -53,6 +54,7 @@ function safeNullableBool(v: unknown): boolean | null {
 
 function normalizeRow(r: any): PrunedGameRow {
   return {
+    topEarningRank: safeNullableInt(r?.topEarningRank),
     universeId: safeInt(r?.universeId),
     name: safeString(r?.name),
     developer: safeNullableString(r?.developer),
@@ -67,16 +69,18 @@ function normalizeRow(r: any): PrunedGameRow {
 }
 
 function buildWorkbook(rows: PrunedGameRow[]) {
-  // Sort for readability (optional):
-  // players desc, then visits desc
+  // Sort for readability: chart position, then players desc
   const sorted = [...rows].sort((a, b) => {
-    if (b.players !== a.players) return b.players - a.players;
-    return b.visits - a.visits;
+    const ra = a.topEarningRank ?? Number.MAX_SAFE_INTEGER;
+    const rb = b.topEarningRank ?? Number.MAX_SAFE_INTEGER;
+    if (ra !== rb) return ra - rb;
+    return b.players - a.players;
   });
 
   // Make an AOA to control column order + headers
   const aoa: (string | number | boolean | null)[][] = [
     [
+      "Top-Earning Rank",
       "Universe ID",
       "Name",
       "Developer",
@@ -89,6 +93,7 @@ function buildWorkbook(rows: PrunedGameRow[]) {
       "Avg Pass Price",
     ],
     ...sorted.map((r) => [
+      r.topEarningRank,
       r.universeId,
       r.name,
       r.developer,
@@ -106,6 +111,7 @@ function buildWorkbook(rows: PrunedGameRow[]) {
 
   // Column widths (viewer-dependent for ODS, but helps)
   (ws as any)["!cols"] = [
+    { wch: 10 }, // Top-Earning Rank
     { wch: 12 }, // Universe ID
     { wch: 42 }, // Name
     { wch: 22 }, // Developer
@@ -119,11 +125,11 @@ function buildWorkbook(rows: PrunedGameRow[]) {
   ];
 
   // Autofilter on header row (works best in XLSX; ODS may vary by app)
-  (ws as any)["!autofilter"] = { ref: "A1:J1" };
+  (ws as any)["!autofilter"] = { ref: "A1:K1" };
 
   // Apply integer formats to numeric columns (mostly honored in XLSX; ODS varies)
-  // Columns: A, D, E, F, H, I, J => 0-based indexes: 0,3,4,5,7,8,9
-  const intCols = new Set([0, 3, 4, 5, 7, 8, 9]);
+  // Columns: A, B, E, F, G, I, J, K => 0-based indexes: 0,1,4,5,6,8,9,10
+  const intCols = new Set([0, 1, 4, 5, 6, 8, 9, 10]);
 
   const range = XLSX.utils.decode_range(ws["!ref"]!);
   for (let r = 1; r <= range.e.r; r++) {

@@ -1,79 +1,112 @@
 [
   {
-    "date":"2026-01-06T00:00:00.000",
+    "date":"2026-01-08",
     "index_level":1000.0,
     "daily_return":0.0,
-    "daily_log_return":0.0,
-    "coverage":10.8768531543
+    "coverage":1.0,
+    "n_constituents":100,
+    "basket_edr":704723072.2146104574,
+    "basket_edr_daily":605915099.9629814625,
+    "basket_edr_usd":1874563.3720908638
   },
   {
-    "date":"2026-01-07T00:00:00.000",
-    "index_level":1145.6514730288,
-    "daily_return":0.145651473,
-    "daily_log_return":0.1359734473,
-    "coverage":1.0
+    "date":"2026-01-09",
+    "index_level":985.9425574452,
+    "daily_return":-0.0140574426,
+    "coverage":1.0,
+    "n_constituents":100,
+    "basket_edr":694816468.1099464893,
+    "basket_edr_daily":665096655.7959547043,
+    "basket_edr_usd":1848211.8051724576
   },
   {
-    "date":"2026-01-08T00:00:00.000",
-    "index_level":1340.0915413683,
-    "daily_return":0.1697200876,
-    "daily_log_return":0.1567644788,
-    "coverage":1.0
+    "date":"2026-01-12",
+    "index_level":948.3752419292,
+    "daily_return":-0.0381029455,
+    "coverage":1.0,
+    "n_constituents":100,
+    "basket_edr":668341914.1046466827,
+    "basket_edr_daily":562443698.0834479332,
+    "basket_edr_usd":1777789.4915183601
   },
   {
-    "date":"2026-01-09T00:00:00.000",
-    "index_level":1488.1237379228,
-    "daily_return":0.1104642422,
-    "daily_log_return":0.1047781641,
-    "coverage":1.0
+    "date":"2026-01-13",
+    "index_level":824.3888561686,
+    "daily_return":-0.1307355784,
+    "coverage":1.0,
+    "n_constituents":100,
+    "basket_edr":582296604.5179640055,
+    "basket_edr_daily":530758365.6437818408,
+    "basket_edr_usd":1548908.9680177842
   },
   {
-    "date":"2026-01-12T00:00:00.000",
-    "index_level":737.5394672768,
-    "daily_return":-0.50438297,
-    "daily_log_return":-0.7019517674,
-    "coverage":1.9427845968
+    "date":"2026-01-14",
+    "index_level":830.3760847715,
+    "daily_return":0.0072626268,
+    "coverage":1.0,
+    "n_constituents":100,
+    "basket_edr":586860139.0688083172,
+    "basket_edr_daily":563949971.9978097677,
+    "basket_edr_usd":1561047.9699230301
   },
   {
-    "date":"2026-01-13T00:00:00.000",
-    "index_level":715.6263645884,
-    "daily_return":-0.0297110916,
-    "daily_log_return":-0.0301614081,
-    "coverage":0.9131494761
+    "date":"2026-01-15",
+    "index_level":815.2348434964,
+    "daily_return":-0.0182341972,
+    "coverage":1.0,
+    "n_constituents":100,
+    "basket_edr":577219447.6381239891,
+    "basket_edr_daily":553793204.186742425,
+    "basket_edr_usd":1535403.7307174099
   },
   {
-    "date":"2026-01-14T00:00:00.000",
-    "index_level":757.7906391104,
-    "daily_return":0.0589193979,
-    "daily_log_return":0.0572489522,
-    "coverage":0.9502621014
+    "date":"2026-01-18",
+    "index_level":801.0472523387,
+    "daily_return":-0.0174030726,
+    "coverage":1.0,
+    "n_constituents":100,
+    "basket_edr":569238729.304094553,
+    "basket_edr_daily":623998386.2207688093,
+    "basket_edr_usd":1514175.0199488916
   },
   {
-    "date":"2026-01-15T00:00:00.000",
-    "index_level":723.0635782775,
-    "daily_return":-0.0458267218,
-    "daily_log_return":-0.0469099907,
-    "coverage":0.9063930975
+    "date":"2026-01-19",
+    "index_level":855.507640743,
+    "daily_return":0.0679864867,
+    "coverage":1.0,
+    "n_constituents":100,
+    "basket_edr":609432361.126617074,
+    "basket_edr_daily":764286530.0529911518,
+    "basket_edr_usd":1621090.0805968014
   },
   {
-    "date":"2026-01-18T00:00:00.000",
-    "index_level":791.9592888664,
-    "daily_return":0.0952830604,
-    "daily_log_return":0.0910128325,
-    "coverage":0.9058560799
+    "date":"2026-01-20",
+    "index_level":879.8435156045,
+    "daily_return":0.0284461222,
+    "coverage":1.0,
+    "n_constituents":100,
+    "basket_edr":627465980.0193302631,
+    "basket_edr_daily":623728694.7370232344,
+    "basket_edr_usd":1669059.5068514184
   },
   {
-    "date":"2026-01-19T00:00:00.000",
-    "index_level":950.538856632,
-    "daily_return":0.2002370197,
-    "daily_log_return":0.1825190537,
-    "coverage":0.8919191582
+    "date":"2026-01-21",
+    "index_level":897.4844077045,
+    "daily_return":0.0200500337,
+    "coverage":1.0,
+    "n_constituents":100,
+    "basket_edr":640301373.9099860191,
+    "basket_edr_daily":627637800.403516531,
+    "basket_edr_usd":1703201.6546005628
   },
   {
-    "date":"2026-01-20T00:00:00.000",
-    "index_level":685.6936535835,
-    "daily_return":-0.2786263825,
-    "daily_log_return":-0.3265980824,
-    "coverage":0.8749664944
+    "date":"2026-01-26",
+    "index_level":917.3728533987,
+    "daily_return":0.0221602131,
+    "coverage":1.0,
+    "n_constituents":100,
+    "basket_edr":654189859.2872431278,
+    "basket_edr_daily":711203082.7211890221,
+    "basket_edr_usd":1740145.0257040667
   }
 ]

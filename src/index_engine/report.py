@@ -1,185 +1,130 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Optional, List, cast
+from typing import List, Optional
 
 import pandas as pd
-
-
-def _as_df(obj: object) -> pd.DataFrame:
-    """
-    Narrow unknown pandas-ish objects to a DataFrame.
-    basedpyright strict sometimes widens .copy() or slicing to DataFrame|Series|Unknown.
-    """
-    if isinstance(obj, pd.DataFrame):
-        return obj
-    if isinstance(obj, pd.Series):
-        # Convert a Series to a 1-col DataFrame (rare in our flow, but safe)
-        return obj.to_frame()
-    return pd.DataFrame()
-
-
-def _series_float(df: pd.DataFrame, col: str, default: float = 0.0) -> pd.Series:
-    if col in df.columns:
-        raw = pd.to_numeric(df[col], errors="coerce")
-        s = pd.Series(raw, index=df.index, dtype="float64").fillna(default)
-        return cast(pd.Series, s)
-    return pd.Series([default] * len(df), index=df.index, dtype="float64")
-
-
-def _series_str(df: pd.DataFrame, col: str, default: str = "") -> pd.Series:
-    if col in df.columns:
-        s = pd.Series(df[col], index=df.index).astype("string").fillna(default)
-        return cast(pd.Series, s)
-    return pd.Series([default] * len(df), index=df.index, dtype="string")
 
 
 def _fmt_pct(x: float, digits: int = 2) -> str:
     try:
         return f"{float(x) * 100.0:.{digits}f}%"
-    except Exception:
+    except (TypeError, ValueError):
         return "—"
 
 
 def _fmt_num(x: float, digits: int = 2) -> str:
     try:
         v = float(x)
-        av = abs(v)
-        if av >= 1_000_000:
-            return f"{v / 1_000_000:.{digits}f}M"
-        if av >= 1_000:
-            return f"{v / 1_000:.{digits}f}K"
-        return f"{v:.{digits}f}"
-    except Exception:
+    except (TypeError, ValueError):
         return "—"
+    if pd.isna(v):
+        return "—"
+    av = abs(v)
+    if av >= 1_000_000_000:
+        return f"{v / 1_000_000_000:.{digits}f}B"
+    if av >= 1_000_000:
+        return f"{v / 1_000_000:.{digits}f}M"
+    if av >= 1_000:
+        return f"{v / 1_000:.{digits}f}K"
+    return f"{v:.{digits}f}"
 
 
-def _safe_sort_by_rank(df: pd.DataFrame) -> pd.DataFrame:
-    out = df.copy()
-    if "rank" in out.columns:
-        raw = pd.to_numeric(out["rank"], errors="coerce")
-        out["rank"] = pd.Series(raw, index=out.index)
-        by_cols: List[str] = ["rank"]
-        out = out.sort_values(by=by_cols, kind="stable")
-    return out
+def _fmt_change(x: object) -> str:
+    if x is None or pd.isna(x):
+        return "new"
+    v = int(x)
+    return f"+{v}" if v > 0 else str(v)
 
 
-def _to_markdown_table(df: pd.DataFrame, cols: List[str], n: int) -> str:
-    existing: List[str] = [c for c in cols if c in df.columns]
-    if not existing:
-        return "_(no columns available)_"
-    view = df.loc[:, existing].head(n)
-    return view.to_markdown(index=False)
+def _table(df: pd.DataFrame, cols: List[str], n: int) -> str:
+    existing = [c for c in cols if c in df.columns]
+    if not existing or df.empty:
+        return "_(none)_"
+    return df.loc[:, existing].head(n).to_markdown(index=False)
 
 
-def write_weekly_report(
+def write_rebalance_report(
     exports_dir: str,
     rebalance_date: str,
-    export_df: pd.DataFrame,
-    membership_history: Optional[pd.DataFrame] = None,
+    constituents: pd.DataFrame,
+    membership_history: Optional[pd.DataFrame],
+    index_ts: Optional[pd.DataFrame],
+    meta: Optional[dict],
+    robux_to_usd: float,
 ) -> Path:
     out_dir = Path(exports_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    df = _as_df(export_df).copy()
-    df = _safe_sort_by_rank(df)
+    df = constituents.sort_values("rank").reset_index(drop=True)
+    w = pd.to_numeric(df.get("weight", pd.Series(dtype=float)), errors="coerce").fillna(0.0)
 
-    # Concentration
-    w = _series_float(df, "weight", 0.0)
-    top5 = float(w.head(5).sum())
-    top10 = float(w.head(10).sum())
+    lines: List[str] = [f"# RTE100 Rebalance Report — {rebalance_date}", ""]
 
-    lines: List[str] = []
-    lines.append(f"# RTE100 Weekly Report — {rebalance_date}\n")
-
-    lines.append("## Summary\n")
+    lines += ["## Summary", ""]
     lines.append(f"- Constituents: **{len(df)}**")
-    lines.append(f"- Top 5 concentration: **{_fmt_pct(top5)}**")
-    lines.append(f"- Top 10 concentration: **{_fmt_pct(top10)}**\n")
-
-    # Top 10
-    lines.append("## Top 10\n")
-    top_view = df.copy()
-
-    if "weight" in top_view.columns:
-        top_view["weight"] = _series_float(top_view, "weight", 0.0).map(lambda v: _fmt_pct(float(v), 2))
-
-    for col in ("edr_7d_mean", "edr_raw"):
-        if col in top_view.columns:
-            top_view[col] = _series_float(top_view, col, 0.0).map(lambda v: _fmt_num(float(v), 2))
-
-    for col in ("edr_mom", "edr_14d_vol"):
-        if col in top_view.columns:
-            top_view[col] = _series_float(top_view, col, 0.0).map(lambda v: _fmt_num(float(v), 3))
-
-    top_cols: List[str] = ["rank", "name", "developer", "weight", "edr_7d_mean", "edr_mom", "edr_14d_vol"]
-    lines.append(_to_markdown_table(top_view, top_cols, n=10))
+    if "edr_7d_mean" in df.columns:
+        basket = float(pd.to_numeric(df["edr_7d_mean"], errors="coerce").fillna(0.0).sum())
+        lines.append(f"- Basket EDR (7d mean): **R$ {_fmt_num(basket)}/day** (≈ ${_fmt_num(basket * robux_to_usd)} developer earnings)")
+    lines.append(f"- Top 5 concentration: **{_fmt_pct(w.head(5).sum())}**")
+    lines.append(f"- Top 10 concentration: **{_fmt_pct(w.head(10).sum())}**")
+    if index_ts is not None and not index_ts.empty:
+        last = index_ts.iloc[-1]
+        lines.append(f"- Index level: **{float(last['index_level']):.2f}** ({_fmt_pct(float(last['daily_return']))} vs prior observation)")
+    v = (meta or {}).get("validation", {})
+    if v.get("next_spearman_model") is not None:
+        lines.append(
+            f"- Predicting the next Top-Earning chart (Spearman, mean over {v['n_dates']} dates): "
+            f"**{v['next_spearman_model']:+.3f}** model vs {v['next_spearman_ccu_only']:+.3f} CCU-only "
+            f"vs {v['next_spearman_chart_persistence']:+.3f} chart persistence"
+        )
     lines.append("")
 
-    # Entrants / exits
-    mh = _as_df(membership_history) if membership_history is not None else pd.DataFrame()
+    lines += ["## Top 10", ""]
+    view = df.copy()
+    if "weight" in view.columns:
+        view["weight"] = w.map(lambda v: _fmt_pct(v))
+    if "edr_7d_mean" in view.columns:
+        view["EDR 7d (R$)"] = pd.to_numeric(view["edr_7d_mean"], errors="coerce").map(_fmt_num)
+        view["EDR 7d ($)"] = (pd.to_numeric(view["edr_7d_mean"], errors="coerce") * robux_to_usd).map(_fmt_num)
+    if "rank_change" in view.columns:
+        view["change"] = view["rank_change"].map(_fmt_change)
+    if "avg_ccu" in view.columns:
+        view["CCU"] = pd.to_numeric(view["avg_ccu"], errors="coerce").map(lambda v: _fmt_num(v, 1))
+    lines.append(_table(view, ["rank", "change", "name", "developer", "weight", "EDR 7d (R$)", "EDR 7d ($)", "CCU"], n=10))
+    lines.append("")
 
+    mh = membership_history.copy() if membership_history is not None else pd.DataFrame()
     if not mh.empty:
-        if "rebalance_date" in mh.columns:
-            mh = mh.copy()
-            mh["rebalance_date"] = pd.to_datetime(mh["rebalance_date"], errors="coerce").dt.date.astype(str)
+        mh["rebalance_date"] = pd.to_datetime(mh["rebalance_date"]).dt.date.astype(str)
+        prior_dates = sorted(d for d in mh["rebalance_date"].unique() if d < rebalance_date)
+        if prior_dates:
+            prior_date = prior_dates[-1]
+            prior = mh[mh["rebalance_date"] == prior_date]
+            curr_ids = set(df["universeId"].tolist())
+            prior_ids = set(prior["universeId"].tolist())
 
-        prior_date: Optional[str] = None
-        if "rebalance_date" in mh.columns:
-            date_list = mh["rebalance_date"].dropna().astype(str).tolist()
-            dates = sorted({d for d in date_list if d != rebalance_date})
-            if dates:
-                prior_date = dates[-1]
+            lines += [f"## Changes vs {prior_date}", ""]
+            entrants = df[df["universeId"].isin(curr_ids - prior_ids)].copy()
+            if not entrants.empty and "weight" in entrants.columns:
+                entrants["weight"] = pd.to_numeric(entrants["weight"], errors="coerce").map(_fmt_pct)
+            lines += ["### New entrants", "", _table(entrants, ["rank", "name", "developer", "weight", "universeId"], n=25), ""]
 
-        if prior_date is not None:
-            prior = _as_df(mh[mh["rebalance_date"] == prior_date]).copy()
+            exits = prior[prior["universeId"].isin(prior_ids - curr_ids)].sort_values("rank").copy()
+            if not exits.empty and "weight" in exits.columns:
+                exits["weight"] = pd.to_numeric(exits["weight"], errors="coerce").map(_fmt_pct)
+            lines += ["### Exits", "", _table(exits, ["rank", "universeId", "weight"], n=25), ""]
 
-            curr_ids = set(_series_str(df, "universeId", "").tolist())
-            prior_ids = set(_series_str(prior, "universeId", "").tolist())
-
-            entrant_ids = curr_ids - prior_ids
-            exit_ids = prior_ids - curr_ids
-
-            lines.append(f"\n## Changes vs {prior_date}\n")
-
-            if entrant_ids and "universeId" in df.columns:
-                entrants = _as_df(df[df["universeId"].isin(list(entrant_ids))]).copy()
-                entrants = _safe_sort_by_rank(entrants)
-
-                ent_view = entrants.copy()
-                if "weight" in ent_view.columns:
-                    ent_view["weight"] = _series_float(ent_view, "weight", 0.0).map(lambda v: _fmt_pct(float(v), 2))
-
-                lines.append("### New entrants\n")
-                ent_cols: List[str] = ["rank", "name", "developer", "weight", "universeId"]
-                lines.append(_to_markdown_table(ent_view, ent_cols, n=25))
-                lines.append("")
-
-            if exit_ids and "universeId" in prior.columns:
-                exits = _as_df(prior[prior["universeId"].isin(list(exit_ids))]).copy()
-                exits = _safe_sort_by_rank(exits)
-
-                lines.append("### Exits\n")
-                exit_cols: List[str] = ["rank", "universeId"]
-                if "weight" in exits.columns:
-                    exit_cols.append("weight")
-                lines.append(_to_markdown_table(exits, exit_cols, n=25))
-                lines.append("")
-
-    # Data quality
-    lines.append("\n## Data quality\n")
-    for col in ("monetization_count", "edr_7d_mean", "score"):
+    lines += ["## Data quality", ""]
+    for col in ("visits_per_day", "like_ratio", "avgGamePassPrice", "edr_7d_mean"):
         if col in df.columns:
-            raw = pd.to_numeric(df[col], errors="coerce")
-            s = pd.Series(raw, index=df.index)  # force Series
-            missing = int(s.isna().sum())
+            missing = int(pd.to_numeric(df[col], errors="coerce").isna().sum())
             lines.append(f"- Missing `{col}`: **{missing}/{len(df)}**")
-        else:
-            lines.append(f"- Missing `{col}`: **{len(df)}/{len(df)}** (column absent)")
+    if "coverage_7d" in df.columns:
+        cov = pd.to_numeric(df["coverage_7d"], errors="coerce").fillna(0.0)
+        lines.append(f"- Mean 7-day coverage: **{_fmt_pct(float(cov.mean()), 1)}**")
 
     md = "\n".join(lines).strip() + "\n"
-
     report_path = out_dir / f"rte100_report_{rebalance_date}.md"
     report_path.write_text(md, encoding="utf-8")
-
     return report_path

@@ -117,7 +117,18 @@ After setup, monitor your pipeline:
 
 If the pipeline fails:
 1. Check GitHub Actions logs for error messages
-2. Ensure all dependencies are in `requirements.txt`
-3. Verify Playwright browsers are installed
-4. Check git permissions for auto-commit
-5. Test manually: `python run_index_engine.py --rebalance-today`
+2. Ensure all dependencies are in `requirements.txt` and `package.json`
+3. Check git permissions for auto-commit
+4. Test manually: `npm run pipeline` (scrape + prune + index engine), or just the engine
+   with `python run_index_engine.py --rebalance-today`
+
+## After changing the model
+
+The snapshot store keeps the raw scrape fields, so a formula change can re-price
+all history. Rebuild membership, index level and exports for every stored date:
+
+```bash
+python run_index_engine.py --replay-all
+python run_index_engine.py --validate   # agreement with Roblox's Top-Earning chart
+python -m pytest                        # engine unit tests
+```

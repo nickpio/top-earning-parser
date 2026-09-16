@@ -1,2 +1,1 @@
-date,index_level,daily_return,daily_log_return,coverage
-2026-01-06,1000.0,0.0,0.0,10.876853154335084
+date,index_level,daily_return,coverage,n_constituents,basket_edr,basket_edr_daily,basket_edr_usd

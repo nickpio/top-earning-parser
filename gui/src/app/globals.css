@@ -1,26 +1,64 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  color-scheme: light dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply bg-zinc-50 text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-100;
+}
+
+/* Surfaces */
+.card {
+  @apply rounded-2xl border border-zinc-200/80 bg-white shadow-sm dark:border-zinc-800 dark:bg-zinc-900;
+}
+
+.card-muted {
+  @apply rounded-xl border border-zinc-200/70 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-950/60;
+}
+
+/* Text helpers */
+.label {
+  @apply text-xs font-medium uppercase tracking-wide text-zinc-500 dark:text-zinc-400;
+}
+
+.num {
+  @apply tabular-nums;
+}
+
+/* Details/summary chevron */
+details > summary {
+  list-style: none;
+  cursor: pointer;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+details[open] .chevron {
+  transform: rotate(180deg);
+}
+
+/* Subtle fade for the expanding row */
+@keyframes rte-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.fade-in {
+  animation: rte-fade-in 160ms ease-out;
+}
+
+/* Skeleton shimmer */
+.skeleton {
+  @apply animate-pulse rounded-md bg-zinc-200 dark:bg-zinc-800;
 }
