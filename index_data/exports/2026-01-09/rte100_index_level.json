@@ -1,30 +1,112 @@
 [
   {
-    "date":"2026-01-06T00:00:00.000",
+    "date":"2026-01-08",
     "index_level":1000.0,
     "daily_return":0.0,
-    "daily_log_return":0.0,
-    "coverage":10.8768531543
+    "coverage":1.0,
+    "n_constituents":100,
+    "basket_edr":704723072.2146104574,
+    "basket_edr_daily":605915099.9629814625,
+    "basket_edr_usd":1874563.3720908638
   },
   {
-    "date":"2026-01-07T00:00:00.000",
-    "index_level":1145.6514730288,
-    "daily_return":0.145651473,
-    "daily_log_return":0.1359734473,
-    "coverage":1.0
+    "date":"2026-01-09",
+    "index_level":985.9425574452,
+    "daily_return":-0.0140574426,
+    "coverage":1.0,
+    "n_constituents":100,
+    "basket_edr":694816468.1099464893,
+    "basket_edr_daily":665096655.7959547043,
+    "basket_edr_usd":1848211.8051724576
   },
   {
-    "date":"2026-01-08T00:00:00.000",
-    "index_level":1340.0915413683,
-    "daily_return":0.1697200876,
-    "daily_log_return":0.1567644788,
-    "coverage":1.0
+    "date":"2026-01-12",
+    "index_level":948.3752419292,
+    "daily_return":-0.0381029455,
+    "coverage":1.0,
+    "n_constituents":100,
+    "basket_edr":668341914.1046466827,
+    "basket_edr_daily":562443698.0834479332,
+    "basket_edr_usd":1777789.4915183601
   },
   {
-    "date":"2026-01-09T00:00:00.000",
-    "index_level":1488.1237379228,
-    "daily_return":0.1104642422,
-    "daily_log_return":0.1047781641,
-    "coverage":1.0
+    "date":"2026-01-13",
+    "index_level":824.3888561686,
+    "daily_return":-0.1307355784,
+    "coverage":1.0,
+    "n_constituents":100,
+    "basket_edr":580965847.418634057,
+    "basket_edr_daily":528482188.0024622083,
+    "basket_edr_usd":1545369.1541335667
+  },
+  {
+    "date":"2026-01-14",
+    "index_level":829.2991420668,
+    "daily_return":0.005956274,
+    "coverage":1.0,
+    "n_constituents":100,
+    "basket_edr":584426239.1822772026,
+    "basket_edr_daily":560193554.066539526,
+    "basket_edr_usd":1554573.7962248574
+  },
+  {
+    "date":"2026-01-15",
+    "index_level":813.0561813776,
+    "daily_return":-0.019586371,
+    "coverage":1.0,
+    "n_constituents":100,
+    "basket_edr":572979450.0235185623,
+    "basket_edr_daily":548681154.1691877842,
+    "basket_edr_usd":1524125.3370625593
+  },
+  {
+    "date":"2026-01-18",
+    "index_level":797.0838811707,
+    "daily_return":-0.0196447682,
+    "coverage":1.0,
+    "n_constituents":100,
+    "basket_edr":561723401.5513566732,
+    "basket_edr_daily":608816413.4351458549,
+    "basket_edr_usd":1494184.2481266088
+  },
+  {
+    "date":"2026-01-19",
+    "index_level":849.7771601713,
+    "daily_return":0.0661075707,
+    "coverage":1.0,
+    "n_constituents":100,
+    "basket_edr":598857571.0136991739,
+    "basket_edr_daily":748114545.3951611519,
+    "basket_edr_usd":1592961.1388964399
+  },
+  {
+    "date":"2026-01-20",
+    "index_level":872.6304014539,
+    "daily_return":0.0268932167,
+    "coverage":1.0,
+    "n_constituents":100,
+    "basket_edr":614962777.4204280376,
+    "basket_edr_daily":609008220.0361065865,
+    "basket_edr_usd":1635800.9879383387
+  },
+  {
+    "date":"2026-01-21",
+    "index_level":886.8781627222,
+    "daily_return":0.0163273721,
+    "coverage":1.0,
+    "n_constituents":100,
+    "basket_edr":625003503.5136224031,
+    "basket_edr_daily":610397184.5325108767,
+    "basket_edr_usd":1662509.3193462356
+  },
+  {
+    "date":"2026-01-26",
+    "index_level":903.5782186337,
+    "daily_return":0.018830158,
+    "coverage":0.9986299838,
+    "n_constituents":100,
+    "basket_edr":636772418.2217562199,
+    "basket_edr_daily":690758910.9814835787,
+    "basket_edr_usd":1693814.6324698715
   }
 ]
