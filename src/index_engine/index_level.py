@@ -1,177 +1,146 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import List, Optional, cast
-import math
+from typing import Dict, List
 
+import numpy as np
 import pandas as pd
 
+from .parameters import IndexParams
 
-def _as_df(obj: object) -> pd.DataFrame:
-    if isinstance(obj, pd.DataFrame):
-        return obj
-    if isinstance(obj, pd.Series):
-        return obj.to_frame()
-    return pd.DataFrame()
-
-
-def _series_float(df: pd.DataFrame, col: str, default: float = 0.0) -> pd.Series:
-    if col in df.columns:
-        raw = pd.to_numeric(df[col], errors="coerce")
-        s = pd.Series(raw, index=df.index, dtype="float64").fillna(default)
-        return cast(pd.Series, s)
-    return pd.Series([default] * len(df), index=df.index, dtype="float64")
+INDEX_COLUMNS: List[str] = [
+    "date",
+    "index_level",
+    "daily_return",
+    "coverage",
+    "n_constituents",
+    "basket_edr",
+    "basket_edr_daily",
+    "basket_edr_usd",
+]
 
 
-def _series_dt(df: pd.DataFrame, col: str) -> pd.Series:
-    """
-    Normalize to pandas Timestamp (normalized to midnight).
-    Returns Series[Timestamp] aligned to df.index.
-    """
-    if col not in df.columns:
-        return pd.Series([pd.NaT] * len(df), index=df.index, dtype="datetime64[ns]")
-    raw = pd.to_datetime(df[col], errors="coerce")
-    s = pd.Series(raw, index=df.index).dt.normalize()
-    return cast(pd.Series, s)
-
-
-def _filter_df(df: pd.DataFrame, mask: pd.Series) -> pd.DataFrame:
-    out = df.loc[mask].copy()
-    return cast(pd.DataFrame, out)
+def _inception_date(
+    feats: pd.DataFrame,
+    mem: pd.DataFrame,
+    rebalance_dates: List[pd.Timestamp],
+    warmup_observations: int,
+) -> pd.Timestamp | None:
+    """First rebalance whose constituents have enough smoothing-window observations."""
+    if "obs_7d" not in feats.columns or warmup_observations <= 1:
+        return rebalance_dates[0] if rebalance_dates else None
+    obs = feats.set_index(["snapshot_date", "universeId"])["obs_7d"]
+    for d in rebalance_dates:
+        ids = mem.loc[mem["rebalance_date"] == d, "universeId"]
+        keys = pd.MultiIndex.from_arrays([[d] * len(ids), ids])
+        found = obs.reindex(keys).dropna()
+        if len(found) > 0 and float(found.median()) >= warmup_observations:
+            return d
+    return None
 
 
 def build_index_level_series(
-    snapshots: pd.DataFrame,
+    features: pd.DataFrame,
     membership_history: pd.DataFrame,
-    base_level: float = 1000.0,
-    eps: float = 1.0,
+    params: IndexParams,
+    robux_to_usd: float,
 ) -> pd.DataFrame:
     """
-    Strict-safe index level series.
+    Chain-linked, revenue-weighted index.
 
-    Inputs:
-      snapshots: must include snapshot_date, universeId, edr_raw
-      membership_history: must include rebalance_date, universeId, weight, in_index (optional)
-
-    Output columns:
-      date, index_level, daily_return, coverage
+    At each rebalance every constituent receives a fixed number of "shares"
+    so that the basket value equals the running level; between rebalances the
+    level is the sum of shares x smoothed EDR. Constituents missing from a
+    day's scrape carry their last known value forward (reported via coverage).
     """
-    snaps = _as_df(snapshots).copy()
-    mem = _as_df(membership_history).copy()
-
-    # --- Validate required columns (runtime safety) ---
-    for col in ["snapshot_date", "universeId", "edr_raw"]:
-        if col not in snaps.columns:
-            raise ValueError(f"snapshots missing required column: {col}")
-
-    for col in ["rebalance_date", "universeId", "weight"]:
-        if col not in mem.columns:
+    for col in ("snapshot_date", "universeId", params.level_column, "edr_raw", "edr_usd"):
+        if col not in features.columns:
+            raise ValueError(f"features missing required column: {col}")
+    for col in ("rebalance_date", "universeId", "weight"):
+        if col not in membership_history.columns:
             raise ValueError(f"membership_history missing required column: {col}")
 
-    # --- Normalize dates + numeric types ---
-    snaps["snapshot_date"] = _series_dt(snaps, "snapshot_date")
-    mem["rebalance_date"] = _series_dt(mem, "rebalance_date")
-
-    snaps["edr_raw"] = _series_float(snaps, "edr_raw", 0.0)
-    mem["weight"] = _series_float(mem, "weight", 0.0)
-
-    # Keep members only (if in_index column exists)
+    mem = membership_history.copy()
+    mem["rebalance_date"] = pd.to_datetime(mem["rebalance_date"]).dt.normalize()
     if "in_index" in mem.columns:
-        # Avoid .query() for strict mode
-        in_index = mem["in_index"] == True  # noqa: E712
-        mem = _filter_df(mem, cast(pd.Series, in_index))
+        mem = mem[mem["in_index"].astype(bool)]
+    mem = mem.drop_duplicates(["rebalance_date", "universeId"], keep="last")
+    if mem.empty:
+        raise ValueError("membership_history has no constituents")
 
-    # Drop rows with missing dates
-    snaps = _filter_df(snaps, cast(pd.Series, snaps["snapshot_date"].notna()))
-    mem = _filter_df(mem, cast(pd.Series, mem["rebalance_date"].notna()))
+    cols = ["snapshot_date", "universeId", params.level_column, "edr_raw", "edr_usd"]
+    if "obs_7d" in features.columns:
+        cols.append("obs_7d")
+    feats = features.loc[:, cols].copy()
+    feats["snapshot_date"] = pd.to_datetime(feats["snapshot_date"]).dt.normalize()
 
-    # If no rebalance history, cannot build an index
-    if len(mem) == 0:
-        raise ValueError("membership_history has no valid rebalance rows")
+    rebalance_dates = sorted(mem["rebalance_date"].unique())
+    first = _inception_date(feats, mem, rebalance_dates, params.warmup_observations)
+    if first is None:
+        return pd.DataFrame(columns=INDEX_COLUMNS)
+    rebalance_dates = [d for d in rebalance_dates if d >= first]
+    snapshot_dates = sorted(feats["snapshot_date"].unique())
+    dates = sorted({d for d in snapshot_dates if d >= first} | set(rebalance_dates))
 
-    # --- Build per-game previous-day EDR to compute returns ---
-    snaps = snaps.loc[:, ["snapshot_date", "universeId", "edr_raw"]].copy()
-    snaps = snaps.sort_values(by=["universeId", "snapshot_date"], kind="stable")
-    snaps["edr_prev"] = snaps.groupby("universeId")["edr_raw"].shift(1)
+    level_pivot = feats.pivot_table(index="snapshot_date", columns="universeId", values=params.level_column, aggfunc="last")
+    observed = level_pivot.notna().reindex(dates).fillna(False)
+    level_vals = level_pivot.reindex(dates).ffill()
+    daily_vals = (
+        feats.pivot_table(index="snapshot_date", columns="universeId", values="edr_raw", aggfunc="last")
+        .reindex(dates)
+        .ffill()
+    )
 
-    # Log return with eps stabilizer; first observation gets 0 log return
-    prev_s = pd.Series(snaps["edr_prev"], index=snaps.index).fillna(snaps["edr_raw"])
-    edr_s = pd.Series(snaps["edr_raw"], index=snaps.index)
+    weights_by_date: Dict[pd.Timestamp, pd.Series] = {
+        d: g.set_index("universeId")["weight"].astype(float) for d, g in mem.groupby("rebalance_date")
+    }
 
-    eps_f = float(eps)
-    log_rets: List[float] = []
+    rows: List[dict] = []
+    shares: pd.Series | None = None
+    level = float(params.base_level)
+    prev_level: float | None = None
 
-    # Pure-Python loop avoids numpy/pandas-stub typing issues in strict mode
-    for edr_v, prev_v in zip(edr_s.tolist(), prev_s.tolist()):
-        a = float(edr_v) + eps_f
-        b = float(prev_v) + eps_f
-        if b <= 0.0 or a <= 0.0:
-            log_rets.append(0.0)
-        else:
-            log_rets.append(math.log(a / b))
+    for d in dates:
+        vals = level_vals.loc[d]
+        if shares is not None:
+            held = shares.index
+            v = vals.reindex(held).fillna(0.0)
+            level = float((shares * v).sum())
 
-    snaps["log_ret"] = pd.Series(log_rets, index=snaps.index, dtype="float64")
+        if d in weights_by_date:
+            w = weights_by_date[d]
+            v = vals.reindex(w.index)
+            valid = v.notna() & (v > 0)
+            w = w[valid] / float(w[valid].sum()) if valid.any() else w.iloc[0:0]
+            shares = (w * level / v[valid]) if valid.any() else None
 
-    # --- Map each snapshot_date -> effective rebalance_date (most recent <= date) ---
-    # Create sorted unique rebalance dates
-    rebal_dates = sorted(set(cast(pd.Series, mem["rebalance_date"]).dropna().tolist()))
-    if len(rebal_dates) == 0:
-        raise ValueError("No rebalance dates found after normalization")
+        if shares is None:
+            continue
 
-    # Unique snapshot dates
-    snap_dates = sorted(set(cast(pd.Series, snaps["snapshot_date"]).dropna().tolist()))
-    if len(snap_dates) == 0:
-        raise ValueError("No snapshot dates found after normalization")
+        held = shares.index
+        v = vals.reindex(held).fillna(0.0)
+        basket = float(v.sum())
+        obs = observed.loc[d].reindex(held).fillna(False).astype(bool)
+        value_now = float((shares * v).sum())
+        coverage = float((shares[obs] * v[obs]).sum() / value_now) if value_now > 0 else 0.0
 
-    # Build mapping table date -> effective rebalance_date
-    # (simple linear scan; fast enough for daily data)
-    eff_reb: List[pd.Timestamp] = []
-    j = 0
-    current = rebal_dates[0]
-    for d in snap_dates:
-        while j + 1 < len(rebal_dates) and rebal_dates[j + 1] <= d:
-            j += 1
-            current = rebal_dates[j]
-        eff_reb.append(current)
+        rows.append(
+            {
+                "date": d.date().isoformat(),
+                "index_level": level,
+                "daily_return": (level / prev_level - 1.0) if prev_level else 0.0,
+                "coverage": coverage,
+                "n_constituents": int(len(held)),
+                "basket_edr": basket,
+                "basket_edr_daily": float(daily_vals.loc[d].reindex(held).fillna(0.0).sum()),
+                "basket_edr_usd": basket * robux_to_usd,
+            }
+        )
+        prev_level = level
 
-    map_df = pd.DataFrame({"snapshot_date": snap_dates, "rebalance_date": eff_reb})
-    snaps = snaps.merge(map_df, on="snapshot_date", how="left")
-
-    # --- Join weights by (rebalance_date, universeId) ---
-    weights = mem.loc[:, ["rebalance_date", "universeId", "weight"]].copy()
-    snaps = snaps.merge(weights, on=["rebalance_date", "universeId"], how="inner")
-
-    # Coverage sanity: sum of weights available that day
-    # Weighted log return per row
-    snaps["w_log_ret"] = snaps["weight"] * snaps["log_ret"]
-
-    daily_log = snaps.groupby("snapshot_date")["w_log_ret"].sum()
-    daily_cov = snaps.groupby("snapshot_date")["weight"].sum()
-
-    daily = pd.DataFrame(
-        {
-            "date": daily_log.index,
-            "daily_log_return": daily_log.values,
-            "coverage": daily_cov.reindex(daily_log.index).values,
-        }
-    ).sort_values(by=["date"], kind="stable")
-
-    # Convert log return to simple return for reporting convenience
-    daily_returns: List[float] = []
-    for lr in daily["daily_log_return"].tolist():
-        daily_returns.append(math.exp(float(lr)) - 1.0)
-    daily["daily_return"] = pd.Series(daily_returns, index=daily.index, dtype="float64")
-
-    # Build index level using log returns
-    levels: List[float] = []
-    level = float(base_level)
-    for lr in daily["daily_log_return"].tolist():
-        level *= math.exp(float(lr))
-        levels.append(level)
-
-    daily["index_level"] = levels
-
-    return daily.loc[:, ["date", "index_level", "daily_return", "daily_log_return", "coverage"]].copy()
+    out = pd.DataFrame(rows, columns=INDEX_COLUMNS)
+    out["daily_return"] = out["daily_return"].replace([np.inf, -np.inf], 0.0)
+    return out
 
 
 def write_index_level_exports(out: pd.DataFrame, exports_dir: str) -> None:
@@ -180,10 +149,8 @@ def write_index_level_exports(out: pd.DataFrame, exports_dir: str) -> None:
 
     csv_path = out_dir / "rte100_index_level.csv"
     json_path = out_dir / "rte100_index_level.json"
-
-    df = _as_df(out).copy()
-    df.to_csv(csv_path, index=False)
-    df.to_json(json_path, orient="records", indent=2, date_format="iso")
+    out.to_csv(csv_path, index=False)
+    out.to_json(json_path, orient="records", indent=2)
 
     print(f"[index_engine] Index level CSV: {csv_path}")
     print(f"[index_engine] Index level JSON: {json_path}")

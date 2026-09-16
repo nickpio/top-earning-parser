@@ -1,147 +1,138 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Optional, cast
+from typing import List, Optional, Set
 
 import pandas as pd
 
 from .parameters import RebalanceParams
 
+MEMBERSHIP_COLUMNS: List[str] = [
+    "rebalance_date",
+    "universeId",
+    "rank",
+    "prev_rank",
+    "rank_change",
+    "is_new",
+    "in_index",
+    "weight",
+]
+
+
 @dataclass(frozen=True)
 class RebalanceResult:
-    membership: pd.DataFrame # -- universeId, rebalance_date, rank, in_index, weight
-    ranked: pd.DataFrame # -- ranked universe for debugging
+    membership: pd.DataFrame  # one row per constituent (MEMBERSHIP_COLUMNS)
+    ranked: pd.DataFrame      # every eligible experience with its rank and features
 
 
-def _score_v1(latest: pd.DataFrame) -> pd.Series:
+def cap_weights(weights: pd.Series, cap: float, max_iter: int = 50) -> pd.Series:
+    """Cap weights at `cap`, redistributing the excess pro-rata to uncapped names."""
+    w = weights.clip(lower=0.0)
+    total = float(w.sum())
+    if total <= 0 or len(w) == 0:
+        return pd.Series(1.0 / max(len(w), 1), index=w.index, dtype="float64")
+    w = w / total
+    if cap * len(w) < 1.0:
+        return pd.Series(1.0 / len(w), index=w.index, dtype="float64")
+
+    for _ in range(max_iter):
+        over = w > cap + 1e-12
+        if not over.any():
+            break
+        excess = float((w[over] - cap).sum())
+        w[over] = cap
+        under = ~over
+        pool = float(w[under].sum())
+        if pool <= 0:
+            break
+        w[under] = w[under] + excess * (w[under] / pool)
+    return w
+
+
+def latest_members(prior_membership: Optional[pd.DataFrame]) -> pd.DataFrame:
+    """Rows of the most recent rebalance in a membership history (empty if none)."""
+    if prior_membership is None or prior_membership.empty:
+        return pd.DataFrame(columns=MEMBERSHIP_COLUMNS)
+    pm = prior_membership.copy()
+    pm["rebalance_date"] = pd.to_datetime(pm["rebalance_date"]).dt.normalize()
+    last = pm["rebalance_date"].max()
+    pm = pm[pm["rebalance_date"] == last]
+    if "in_index" in pm.columns:
+        pm = pm[pm["in_index"].astype(bool)]
+    return pm
+
+
+def rebalance(
+    features: pd.DataFrame,
+    rebalance_date: str,
+    params: RebalanceParams,
+    prior_membership: Optional[pd.DataFrame] = None,
+) -> RebalanceResult:
     """
-    Minimal composite score for weekly selection:
+    Select and weight constituents as of `rebalance_date`.
 
-    - level: edr_7d_mean
-    - momentum: edr_mom
-    - risk penalty: edr_14d_vol
-
-    Score is cross-sectional z-like by rank percentiles
+    Ranking is by trailing 7-day mean EDR (the stated purpose of the index);
+    buffer rules keep existing members while they stay inside `exit_rank`.
     """
-    # Bootstrapping fallback: if 7d mean is missing, use today's edr_raw
-    edr_7d_missing = "edr_7d_mean" not in latest.columns
-    edr_7d_all_na = bool(latest["edr_7d_mean"].isna().all()) if not edr_7d_missing else True
-    if edr_7d_missing or edr_7d_all_na:
-        latest = latest.copy()
-        edr_raw_series = cast(pd.Series, latest["edr_raw"]) if "edr_raw" in latest.columns else pd.Series([0.0] * len(latest), dtype=float)
-        latest["edr_7d_mean"] = edr_raw_series
-    # -- Higher is better: edr_7d_mean, edr_mom
-    # -- Lower is better: edr_14d_vol
-
-    n = len(latest)
-    idx = latest.index
-
-    # --- Level (revenue strength) ---
-    edr_7d = (
-        latest["edr_7d_mean"]
-        if "edr_7d_mean" in latest.columns
-        else pd.Series([pd.NA] * n, index=idx)
-    )
-
-    edr_raw = (
-        latest["edr_raw"]
-        if "edr_raw" in latest.columns
-        else pd.Series([0.0] * n, index=idx)
-    )
-
-    level_series = edr_7d.fillna(edr_raw).astype(float)
-    level = level_series.rank(pct=True)
-
-
-    # --- Momentum ---
-    if "edr_mom" in latest.columns:
-        mom_series = latest["edr_mom"].astype(float)
-    else:
-        mom_series = pd.Series([0.0] * n, index=idx)
-
-    mom = mom_series.fillna(0.0).rank(pct=True)
-
-
-    # --- Risk (volatility penalty) ---
-    if "edr_14d_vol" in latest.columns:
-        risk_series = latest["edr_14d_vol"].astype(float)
-    else:
-        risk_series = pd.Series([0.0] * n, index=idx)
-
-    risk = risk_series.fillna(0.0).rank(pct=True)
-
-
-    # --- Final composite score ---
-    score = 0.65 * level + 0.25 * mom - 0.10 * risk
-    return score
-
-def rebalance_weekly(features: pd.DataFrame, rebalance_date: str, params: RebalanceParams, prior_membership: Optional[pd.DataFrame] = None,) -> RebalanceResult:
-    """
-    features: output of compute_rolling_features(history) with time-series row.
-    rebalance_date: 'YYYY-MM-DD'
-
-    prior_membership: membership table from previous rebalance (Optional)
-    """
-
     reb_date = pd.to_datetime(rebalance_date).normalize()
 
-    # -- Use latest available row per universeId up to rebalance_date
     df = features.copy()
     df["snapshot_date"] = pd.to_datetime(df["snapshot_date"]).dt.normalize()
-    df = cast(pd.DataFrame, df[df["snapshot_date"] <= reb_date])
+    df = df[df["snapshot_date"] <= reb_date]
+    df = df.sort_values(["universeId", "snapshot_date"], kind="stable")
+    latest = df.groupby("universeId", as_index=False, sort=False).tail(1).copy()
 
-    sorted_df = cast(pd.DataFrame, df.sort_values(by=["universeId", "snapshot_date"]))
-    latest = cast(pd.DataFrame, sorted_df.groupby("universeId", as_index=False).tail(1))
+    staleness = (reb_date - latest["snapshot_date"]).dt.days
+    fresh = latest[staleness <= params.max_staleness_days].copy()
 
-    # -- Eligibility
+    eligible = fresh[fresh["obs_7d"] >= params.min_observations_7d].copy()
+    if len(eligible) < params.n_constituents:
+        eligible = fresh  # bootstrap: not enough history yet
 
-    latest = cast(pd.DataFrame, latest[latest["coverage_7d"] >= params.min_coverage_7d].copy())
-    if latest.empty:
-        membership: pd.DataFrame = pd.DataFrame(columns=["rebalance_date", "universeId", "rank", "in_index", "weight"])  # type: ignore[arg-type]
-        return RebalanceResult(membership=membership, ranked=latest)
+    if eligible.empty:
+        return RebalanceResult(membership=pd.DataFrame(columns=MEMBERSHIP_COLUMNS), ranked=eligible)
 
-    # -- Score & Rank
-    latest["score"] = _score_v1(latest)
-    latest = cast(pd.DataFrame, latest.sort_values("score", ascending=False).reset_index(drop=True))
-    latest["rank"] = latest.index + 1
+    eligible = eligible.sort_values(["edr_7d_mean", "edr_raw"], ascending=[False, False], kind="stable")
+    eligible = eligible.reset_index(drop=True)
+    eligible["rank"] = eligible.index + 1
 
-    # -- Determine current members using hysteresis
-    prev_set = set()
-    if prior_membership is not None and not prior_membership.empty:
-        pm = prior_membership.copy()
-        pm["rebalance_date"] = pd.to_datetime(pm["rebalance_date"]).dt.normalize()
-        last_reb = pm["rebalance_date"].max()
-        prev_set = set(pm.loc[pm["rebalance_date"] == last_reb].query("in_index == True")["universeId"].tolist())
+    prior = latest_members(prior_membership)
+    prior_ids: Set[int] = set(prior["universeId"].tolist())
+    prior_rank = dict(zip(prior["universeId"].tolist(), prior["rank"].tolist())) if not prior.empty else {}
 
-    
-    # -- Base selection by rank
-    enter = set(latest.loc[latest["rank"] <= params.enter_rank, "universeId"].tolist())
-    stay = set(latest.loc[latest["rank"] <= params.exit_rank, "universeId"].tolist())
+    by_rank = eligible.sort_values("rank")
+    stay: List[int] = [
+        int(u) for u, r in zip(by_rank["universeId"], by_rank["rank"]) if u in prior_ids and r <= params.exit_rank
+    ]
+    forced: List[int] = [
+        int(u) for u, r in zip(by_rank["universeId"], by_rank["rank"]) if u not in prior_ids and r <= params.enter_rank
+    ]
 
-    selected = list(enter | stay)
+    n = params.n_constituents
+    room = n - len(stay)
+    if len(forced) > room:
+        drop = len(forced) - room
+        stay = stay[: max(len(stay) - drop, 0)]
+    selected: List[int] = stay + forced
+    if len(selected) < n:
+        chosen = set(selected)
+        for u in by_rank["universeId"]:
+            if len(selected) >= n:
+                break
+            if int(u) not in chosen:
+                selected.append(int(u))
+                chosen.add(int(u))
+    selected = selected[:n]
 
-    # -- Fill to exactly n_constituents with next best ranks
-    if len(selected) < params.n_constituents:
-        fill = latest.loc[~latest["universeId"].isin(selected)].head(params.n_constituents - len(selected))["universeId"].tolist()
-        selected.extend(fill)
-    else:
-        selected = latest.loc[latest["universeId"].isin(selected)].head(params.n_constituents)["universeId"].tolist()
-    
-    # -- Build membership frame
-    latest["in_index"] = latest["universeId"].isin(selected)
-    members = latest[latest["in_index"]].copy()
+    members = eligible[eligible["universeId"].isin(selected)].copy()
+    members["weight"] = cap_weights(members["edr_7d_mean"].astype(float), params.max_weight).values
+    members["prev_rank"] = members["universeId"].map(prior_rank)
+    members["rank_change"] = members["prev_rank"] - members["rank"]
+    members["is_new"] = ~members["universeId"].isin(list(prior_ids)) if prior_ids else False
+    members["in_index"] = True
+    members["rebalance_date"] = reb_date.date().isoformat()
 
-    # -- Simple weights: revenue-level proxy weights by edr_7d_mean
-
-    edr_series = cast(pd.Series, members["edr_7d_mean"])
-    denom = edr_series.clip(lower=0.0).sum()
-    if denom > 0:
-        members["weight"] = edr_series.clip(lower=0.0) / denom
-    else:
-        members["weight"] = 1.0 / len(members)
-    
-    membership = cast(pd.DataFrame, members[["universeId", "rank", "in_index", "weight"]].copy())
-    membership.insert(0, "rebalance_date", reb_date.date())
-
-    ranked = cast(pd.DataFrame, latest[["universeId", "snapshot_date", "score", "rank", "edr_7d_mean", "edr_mom", "edr_14d_vol", "coverage_7d"]].copy())
+    membership = members.loc[:, MEMBERSHIP_COLUMNS].sort_values("rank").reset_index(drop=True)
+    ranked = eligible.copy()
+    ranked["snapshot_date"] = ranked["snapshot_date"].dt.date.astype(str)
     return RebalanceResult(membership=membership, ranked=ranked)
